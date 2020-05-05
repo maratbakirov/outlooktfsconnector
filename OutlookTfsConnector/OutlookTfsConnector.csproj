@@ -344,7 +344,7 @@
       <DependentUpon>TfsWorkItemUserForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="OutlookTfsConnector_TemporaryKey.pfx" />
+    <None Include="OutlookTfsConnector_1_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -382,10 +382,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>OutlookTfsConnector_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>OutlookTfsConnector_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>B28FB2A54DC322E197E3D71C2FE93DC86A973A30</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>0F9387F0583F877C91AF12A63F233B67CAC731BB</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
