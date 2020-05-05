@@ -42,7 +42,7 @@ namespace OutlookTfsConnector
         {
             // Note: Outlook no longer raises this event. If you have code that 
             //    must run when Outlook shuts down, see https://go.microsoft.com/fwlink/?LinkId=506785
-            MessageBox.Show("Outlook TFS Connecter, Addin Shutting Down");
+            MessageBox.Show("Outlook TFS Connector, Addin Shutting Down");
         }
 
         #region VSTO generated code
