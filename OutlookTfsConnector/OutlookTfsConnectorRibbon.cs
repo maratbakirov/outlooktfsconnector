@@ -26,6 +26,7 @@ namespace OutlookTfsConnector
             btnAddEmailToTfs.Enabled = outlookAddin.EnableAddinFunctions;
         }
 
+    
         private void btnAddEmailToTfs_Click(object sender, RibbonControlEventArgs e)
         {
 

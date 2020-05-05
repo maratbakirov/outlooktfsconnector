@@ -27,7 +27,7 @@ namespace OutlookTfsConnector
 
         private bool _enableFunction;
 
-        private const string configFilePath = @"C:\Temp\OutlookTfsConfig\OutlookTfsAddinConfig.txt";
+        //private const string configFilePath = @"C:\Temp\OutlookTfsConfig\OutlookTfsAddinConfig.txt";
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {

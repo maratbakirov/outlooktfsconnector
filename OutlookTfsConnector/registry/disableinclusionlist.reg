@@ -1,0 +1,9 @@
+REGEDIT4
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\Security\TrustManager\PromptingLevel]
+"MyComputer"="Disabled"
+"LocalIntranet"="Disabled"
+"Internet"="Disabled"
+"TrustedSites"="Disabled"
+"UntrustedSites"="Disabled"
+
