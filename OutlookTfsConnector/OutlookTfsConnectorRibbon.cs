@@ -49,5 +49,12 @@ namespace OutlookTfsConnector
                 }
             }
         }
+
+        private void btnSettings_Click(object sender, RibbonControlEventArgs e)
+        {
+            SettingsForm userForm = new SettingsForm();
+            userForm.ShowDialog();
+
+        }
     }
 }

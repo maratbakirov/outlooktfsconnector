@@ -44,6 +44,7 @@
             this.tabNewMailMessage = this.Factory.CreateRibbonTab();
             this.group3 = this.Factory.CreateRibbonGroup();
             this.button1 = this.Factory.CreateRibbonButton();
+            this.btnSettings = this.Factory.CreateRibbonButton();
             this.tabCustomHome.SuspendLayout();
             this.group1.SuspendLayout();
             this.tabReadMessage.SuspendLayout();
@@ -63,6 +64,7 @@
             // group1
             // 
             this.group1.Items.Add(this.btnAddEmailToTfs);
+            this.group1.Items.Add(this.btnSettings);
             this.group1.Label = "TFS";
             this.group1.Name = "group1";
             // 
@@ -121,6 +123,14 @@
             this.button1.ShowImage = true;
             this.button1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnAddEmailToTfs_Click);
             // 
+            // btnSettings
+            // 
+            this.btnSettings.Image = ((System.Drawing.Image)(resources.GetObject("btnSettings.Image")));
+            this.btnSettings.Label = "Settings";
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.ShowImage = true;
+            this.btnSettings.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnSettings_Click);
+            // 
             // OutlookTfsConnectorRibbon
             // 
             this.Name = "OutlookTfsConnectorRibbon";
@@ -157,6 +167,7 @@
         private Microsoft.Office.Tools.Ribbon.RibbonTab tabNewMailMessage;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup group3;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button1;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btnSettings;
     }
 
     partial class ThisRibbonCollection
