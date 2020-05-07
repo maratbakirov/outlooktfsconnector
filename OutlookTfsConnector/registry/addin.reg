@@ -1,8 +1,8 @@
 REGEDIT4
 
 [HKEY_CURRENT_USER\Software\Microsoft\Office\Outlook\Addins\OutlookTfsConnector]
-"Description"="OutlookTfsConnector"
 "FriendlyName"="OutlookTfsConnector"
-"LoadBehavior"=dword:00000002
-"Manifest"="file:///C:/_gt/outlooktfsconnector/OutlookTfsConnector/bin/Debug/OutlookTfsConnector.vsto|vstolocal"
+"Description"="OutlookTfsConnector"
+"LoadBehavior"=dword:00000003
+"Manifest"="file:///C:\\scripts\\tfsoutlookaddin\\OutlookTfsConnector.vsto|vstolocal"
 
