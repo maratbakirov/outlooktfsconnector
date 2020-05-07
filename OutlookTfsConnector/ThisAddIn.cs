@@ -8,7 +8,6 @@ using Office = Microsoft.Office.Core;
 using System.Windows.Forms;
 using System.IO;
 using System.Configuration;
-using OutlookTfsConnector.Code;
 
 namespace OutlookTfsConnector
 {

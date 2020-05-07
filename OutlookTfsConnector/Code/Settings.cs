@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OutlookTfsConnector;
 
-namespace OutlookTfsConnector.Code
+namespace OutlookTfsConnector
 {
     public class TfsConfigurationItem : ICloneable
     {
@@ -39,21 +41,54 @@ namespace OutlookTfsConnector.Code
     }
     public class Settings
     {
+        private const string RegisrtyPath = @"Software\Microsoft\Office\Outlook\AddinsCustomData\OutlookTfsConnector";
         public string RegexToParseEmailSubjects = "";
-        public List<TfsConfigurationItem> TfsConfigurations = new List<TfsConfigurationItem>()  { new TfsConfigurationItem() };
+        public List<TfsConfigurationItem> TfsConfigurations = new List<TfsConfigurationItem>();
 
         public void Load()
         {
             //TODO: load from registry
-            TfsConfigurations[0].TfsUrl = ConfigurationManager.AppSettings["TFS_URL"];
-            TfsConfigurations[0].TfsProject = ConfigurationManager.AppSettings["TFS_PROJECT"];
-            TfsConfigurations[0].TfsUserName = ConfigurationManager.AppSettings["TFS_USERNAME"];
-            TfsConfigurations[0].TfsUserToken = ConfigurationManager.AppSettings["TFS_USERTOKEN"];
+            //TfsConfigurations[0].TfsUrl = ConfigurationManager.AppSettings["TFS_URL"];
+            //TfsConfigurations[0].TfsProject = ConfigurationManager.AppSettings["TFS_PROJECT"];
+            //TfsConfigurations[0].TfsUserName = ConfigurationManager.AppSettings["TFS_USERNAME"];
+            //TfsConfigurations[0].TfsUserToken = ConfigurationManager.AppSettings["TFS_USERTOKEN"];
+
+            try
+            {
+
+                RegistryKey key = Registry.CurrentUser.OpenSubKey(RegisrtyPath);
+                RegexToParseEmailSubjects = (string)key.GetValue("RegexToParseEmailSubjects", "");
+                var TfsConfigurationsCount = (int)key.GetValue("TfsConfigurationsCount");
+                for (int idx = 0; idx < TfsConfigurationsCount; idx++)
+                {
+                    TfsConfigurations.Add(new TfsConfigurationItem(
+                            (string)key.GetValue("TfsConfiguration" + idx + ".TfsUrl"),
+                            (string)key.GetValue("TfsConfiguration" + idx + ".TfsProject"),
+                            (string)key.GetValue("TfsConfiguration" + idx + ".TfsUserName"),
+                            ((string)key.GetValue("TfsConfiguration" + idx + ".TfsUserToken")).Decrypt()
+                        )); ;
+                }
+            }
+            catch (Exception ex)
+            {
+                // todo: log cannot read data from registry
+            }
+
         }
 
         public void Save()
         {
             //TODO: save to registry
+            RegistryKey key = Registry.CurrentUser.CreateSubKey(RegisrtyPath);
+            key.SetValue("RegexToParseEmailSubjects", RegexToParseEmailSubjects);
+            key.SetValue("TfsConfigurationsCount", TfsConfigurations.Count);
+            for (int idx =0; idx<TfsConfigurations.Count; idx++)
+            {
+                key.SetValue("TfsConfiguration" + idx + ".TfsUrl", TfsConfigurations[idx].TfsUrl);
+                key.SetValue("TfsConfiguration" + idx + ".TfsProject", TfsConfigurations[idx].TfsProject);
+                key.SetValue("TfsConfiguration" + idx + ".TfsUserName", TfsConfigurations[idx].TfsUserName);
+                key.SetValue("TfsConfiguration" + idx + ".TfsUserToken", TfsConfigurations[idx].TfsUserToken.Encrypt());
+            }
         }
     }
 }

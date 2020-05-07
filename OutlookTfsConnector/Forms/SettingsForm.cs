@@ -1,5 +1,5 @@
 ﻿using Microsoft.TeamFoundation.VersionControl.Common.Internal;
-using OutlookTfsConnector.Code;
+using OutlookTfsConnector;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
