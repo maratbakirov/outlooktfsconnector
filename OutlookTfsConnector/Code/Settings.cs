@@ -77,6 +77,10 @@ namespace OutlookTfsConnector
                             tfsUserToken
                         )); ;
                 }
+                if (!FixAllUrls())
+                {
+                    Save();
+                }
             }
             catch (Exception ex)
             {
@@ -87,6 +91,7 @@ namespace OutlookTfsConnector
 
         public void Save()
         {
+            FixAllUrls();
             //TODO: save to registry
             RegistryKey key = Registry.CurrentUser.CreateSubKey(RegisrtyPath);
             key.SetValue("RegexToParseEmailSubjects", RegexToParseEmailSubjects);
@@ -97,7 +102,24 @@ namespace OutlookTfsConnector
                 key.SetValue("TfsConfiguration" + idx + ".TfsProject", TfsConfigurations[idx].TfsProject);
                 key.SetValue("TfsConfiguration" + idx + ".TfsUserName", TfsConfigurations[idx].TfsUserName);
                 key.SetValue("TfsConfiguration" + idx + ".TfsUserToken", TfsConfigurations[idx].TfsUserToken.Encrypt());
+         
             }
+        }
+
+
+        public bool FixAllUrls()
+        {
+            bool result = true;
+            foreach(var configuraiton in TfsConfigurations)
+            {
+                if (!configuraiton.TfsUrl.EndsWith("/"))
+                {
+                    configuraiton.TfsUrl = configuraiton.TfsUrl + "/";
+                    result = false;
+                }
+            }
+
+            return result;
         }
     }
 }

@@ -24,6 +24,12 @@ namespace OutlookTfsConnector
         private Microsoft.Office.Interop.Outlook.MailItem _outlookCurrentMailItem;
         private ThisAddIn _thisAddIn;
         private ExchangeUser _exchangeUser;
+
+        WorkItem parentItem = null;
+
+        bool parentItemValidated = false;
+        bool existingItemValidated = false;
+
         public TfsWorkItemUserForm(Microsoft.Office.Interop.Outlook.MailItem outlookCurrentMailItem , ThisAddIn thisAddIn, ExchangeUser exchangeUser)
         {
             _outlookCurrentMailItem = outlookCurrentMailItem;
@@ -59,8 +65,7 @@ namespace OutlookTfsConnector
         private void btnSaveNClose_Click(object sender, EventArgs e)
         {
             var tfsConnection = Globals.ThisAddIn.Settings.TfsConfigurations[cbProject.SelectedIndex];
-            var connection = new VssConnection(new Uri(tfsConnection.TfsUrl), new VssBasicCredential(string.Empty, tfsConnection.TfsUserToken));
-            var witClient = connection.GetClient<WorkItemTrackingHttpClient>();
+            WorkItemTrackingHttpClient witClient = GetVssClient(tfsConnection);
 
             JsonPatchDocument patchDocument = new JsonPatchDocument();
 
@@ -77,7 +82,7 @@ namespace OutlookTfsConnector
             StringBuilder bodyText = new StringBuilder();
             bodyText.Append(txtBody.Text.Replace(Environment.NewLine, "<br/>"));
             bodyText.Append("<br/>");
-            bodyText.Append("From : " + _outlookCurrentMailItem.SenderName + " (" +  GetSenderEmailAddress(_outlookCurrentMailItem) + ")");
+            bodyText.Append("From : " + _outlookCurrentMailItem.SenderName + " (" + GetSenderEmailAddress(_outlookCurrentMailItem) + ")");
 
             patchDocument.Add(
                 new JsonPatchOperation()
@@ -105,7 +110,7 @@ namespace OutlookTfsConnector
                     Value = txtSystemInformation.Text
                 }
             );
-            
+
             patchDocument.Add(
                 new JsonPatchOperation()
                 {
@@ -133,6 +138,43 @@ namespace OutlookTfsConnector
                 }
             );
 
+            // add parent
+            if (parentItem != null)
+            {
+                patchDocument.Add(new Microsoft.VisualStudio.Services.WebApi.Patch.Json.JsonPatchOperation()
+                {
+                    Operation = Operation.Add,
+                    Path = "/relations/-",
+                    Value = new
+                    {
+                        rel = "System.LinkTypes.Hierarchy-Reverse",
+                        url = tfsConnection.TfsUrl + tfsConnection.TfsProject + "/_apis/wit/workItems/" + parentItem.Id,
+                        attributes = new
+                        {
+                            comment = "link parent WIT"
+                        }
+                    }
+                });
+
+                var fieldsToInherit = new string[] { "System.AreaPath", "System.IterationPath" };
+
+                foreach(var fieldToInherit in fieldsToInherit)
+                {
+                    if (parentItem.Fields.ContainsKey(fieldToInherit))
+                    {
+                        patchDocument.Add(
+                            new JsonPatchOperation()
+                            {
+                                Operation = Operation.Add,
+                                Path = "/fields/" + fieldToInherit,
+                                Value = parentItem.Fields[fieldToInherit]
+                            }
+                        ); ;
+                    }
+                }
+                
+            }
+
             /*
             patchDocument.Add(
                 new JsonPatchOperation()
@@ -146,20 +188,24 @@ namespace OutlookTfsConnector
 
             WorkItem result = witClient.CreateWorkItemAsync(patchDocument, tfsConnection.TfsProject, cbWorkItemType.Text).Result;
 
+
+
+            //// add files
+
             List<string> saveFilePaths = new List<string>();
 
             for (int i = 0; i < chkLstBoxAttachements.Items.Count; i++)
             {
                 if (chkLstBoxAttachements.GetItemChecked(i))
                 {
-                    
+
                     string fPath = ConfigurationManager.AppSettings["TMP_ATTACH_FOLDER"] + _outlookCurrentMailItem.Attachments[i + 1].FileName;
                     saveFilePaths.Add(fPath);
-                    _outlookCurrentMailItem.Attachments[i + 1].SaveAsFile(fPath); 
+                    _outlookCurrentMailItem.Attachments[i + 1].SaveAsFile(fPath);
                 }
             }
 
-
+        
             if (saveFilePaths.Count > 0)
             {
                 JsonPatchDocument attachDocument = new JsonPatchDocument();
@@ -243,6 +289,13 @@ namespace OutlookTfsConnector
             this.Dispose();
         }
 
+        private static WorkItemTrackingHttpClient GetVssClient(TfsConfigurationItem tfsConnection)
+        {
+            var connection = new VssConnection(new Uri(tfsConnection.TfsUrl), new VssBasicCredential(string.Empty, tfsConnection.TfsUserToken));
+            var witClient = connection.GetClient<WorkItemTrackingHttpClient>();
+            return witClient;
+        }
+
         private string GetSenderEmailAddress(MailItem mail)
         {
             AddressEntry sender = mail.Sender;
@@ -266,7 +319,17 @@ namespace OutlookTfsConnector
 
         private void CheckAndEnableSaveButton()
         {
-            if (cbWorkItemType.SelectedIndex >= 0 && cbPriority.SelectedIndex >= 0 && cbSeverity.SelectedIndex >= 0
+            bool itemIdvalidated = false;
+            if (tabControl1.SelectedTab == tabNewItem)
+            {
+                itemIdvalidated = parentItemValidated;
+            }
+            else if (tabControl1.SelectedTab == tabUpdateItem)
+            {
+                itemIdvalidated = existingItemValidated;
+            }
+
+            if (itemIdvalidated && cbWorkItemType.SelectedIndex >= 0 && cbPriority.SelectedIndex >= 0 && cbSeverity.SelectedIndex >= 0
                 && txtBody.TextLength > 0 && txtTitle.TextLength > 0)
                 btnSaveNClose.Enabled = true;
             else
@@ -314,6 +377,65 @@ namespace OutlookTfsConnector
         private void txtTitle_TextChanged(object sender, EventArgs e)
         {
             CheckAndEnableSaveButton();
+        }
+
+
+        private string WorkItemToString(WorkItem item)
+        {
+            List<string> resultStrings = new List<string>();
+            var keys = new string[]{ "Title", "WorkItemType", "IterationPath", "State" };
+            foreach (var key in keys)
+            {
+                var realKey = "System." + key;
+                if (item.Fields.ContainsKey(realKey))
+                {
+                    var val = item.Fields[realKey];
+                    resultStrings.Add($"{key}:{val}");
+                }
+            }
+            return string.Join(Environment.NewLine,resultStrings);
+        }
+
+        private void txtParentItem_Leave(object sender, EventArgs e)
+        {
+            parentItemValidated = false;
+            parentItem = null;
+            CheckAndEnableSaveButton();
+            try
+            {
+                var itemId = int.Parse(txtParentItem.Text);
+                var tfsConnection = Globals.ThisAddIn.Settings.TfsConfigurations[cbProject.SelectedIndex];
+                WorkItemTrackingHttpClient witClient = GetVssClient(tfsConnection);
+                parentItem = witClient.GetWorkItemAsync(itemId).Result;
+                if (parentItem != null)
+                {
+                    if ("Removed" == (string)parentItem.Fields["System.State"])
+                    {
+                        txtParentItemDetails.Text = "Error = cannot use the removed item " +Environment.NewLine +  WorkItemToString(parentItem);
+                        parentItem = null;
+                        parentItemValidated = false;
+                        CheckAndEnableSaveButton();
+                    }
+                    else
+                    {
+                        parentItemValidated = true;
+                        CheckAndEnableSaveButton();
+                        txtParentItemDetails.Text = WorkItemToString(parentItem);
+                        txtParentItemDetails.ForeColor = SystemColors.WindowText;
+                    }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                parentItemValidated = false;
+                CheckAndEnableSaveButton();
+                txtParentItemDetails.Text = ex.Message ?? "";
+                if (ex.InnerException != null)
+                {
+                    txtParentItemDetails.Text += " " + ex.InnerException.Message ?? "";
+                }
+                txtParentItemDetails.ForeColor = Color.FromKnownColor(KnownColor.Red);
+            }
         }
     }
 }
