@@ -317,16 +317,17 @@
     can be found.
   -->
   <ItemGroup>
-    <Compile Include="OutlookTfsConnectorRibbon.cs">
+    <Compile Include="Code\Settings.cs" />
+    <Compile Include="Forms\OutlookTfsConnectorRibbon.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="OutlookTfsConnectorRibbon.Designer.cs">
+    <Compile Include="Forms\OutlookTfsConnectorRibbon.Designer.cs">
       <DependentUpon>OutlookTfsConnectorRibbon.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <EmbeddedResource Include="OutlookTfsConnectorRibbon.resx">
+    <EmbeddedResource Include="Forms\OutlookTfsConnectorRibbon.resx">
       <DependentUpon>OutlookTfsConnectorRibbon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -339,10 +340,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="SettingsForm.resx">
+    <EmbeddedResource Include="Forms\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TfsWorkItemUserForm.resx">
+    <EmbeddedResource Include="Forms\TfsWorkItemUserForm.resx">
       <DependentUpon>TfsWorkItemUserForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
@@ -357,17 +358,17 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="SettingsForm.cs">
+    <Compile Include="Forms\SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SettingsForm.Designer.cs">
+    <Compile Include="Forms\SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="StringExtensions.cs" />
-    <Compile Include="TfsWorkItemUserForm.cs">
+    <Compile Include="Code\StringExtensions.cs" />
+    <Compile Include="Forms\TfsWorkItemUserForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TfsWorkItemUserForm.Designer.cs">
+    <Compile Include="Forms\TfsWorkItemUserForm.Designer.cs">
       <DependentUpon>TfsWorkItemUserForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ThisAddIn.cs">

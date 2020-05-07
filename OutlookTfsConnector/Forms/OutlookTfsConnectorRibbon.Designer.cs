@@ -37,14 +37,14 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OutlookTfsConnectorRibbon));
             this.tabCustomHome = this.Factory.CreateRibbonTab();
             this.group1 = this.Factory.CreateRibbonGroup();
-            this.btnAddEmailToTfs = this.Factory.CreateRibbonButton();
             this.tabReadMessage = this.Factory.CreateRibbonTab();
             this.group2 = this.Factory.CreateRibbonGroup();
-            this.btnAddEmailToTfs2 = this.Factory.CreateRibbonButton();
             this.tabNewMailMessage = this.Factory.CreateRibbonTab();
             this.group3 = this.Factory.CreateRibbonGroup();
-            this.button1 = this.Factory.CreateRibbonButton();
+            this.btnAddEmailToTfs = this.Factory.CreateRibbonButton();
             this.btnSettings = this.Factory.CreateRibbonButton();
+            this.btnAddEmailToTfs2 = this.Factory.CreateRibbonButton();
+            this.button1 = this.Factory.CreateRibbonButton();
             this.tabCustomHome.SuspendLayout();
             this.group1.SuspendLayout();
             this.tabReadMessage.SuspendLayout();
@@ -68,15 +68,6 @@
             this.group1.Label = "TFS";
             this.group1.Name = "group1";
             // 
-            // btnAddEmailToTfs
-            // 
-            this.btnAddEmailToTfs.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.btnAddEmailToTfs.Image = ((System.Drawing.Image)(resources.GetObject("btnAddEmailToTfs.Image")));
-            this.btnAddEmailToTfs.Label = "Add Email To TFS";
-            this.btnAddEmailToTfs.Name = "btnAddEmailToTfs";
-            this.btnAddEmailToTfs.ShowImage = true;
-            this.btnAddEmailToTfs.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnAddEmailToTfs_Click);
-            // 
             // tabReadMessage
             // 
             this.tabReadMessage.ControlId.ControlIdType = Microsoft.Office.Tools.Ribbon.RibbonControlIdType.Office;
@@ -90,15 +81,6 @@
             this.group2.Items.Add(this.btnAddEmailToTfs2);
             this.group2.Label = "TFS";
             this.group2.Name = "group2";
-            // 
-            // btnAddEmailToTfs2
-            // 
-            this.btnAddEmailToTfs2.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.btnAddEmailToTfs2.Image = ((System.Drawing.Image)(resources.GetObject("btnAddEmailToTfs2.Image")));
-            this.btnAddEmailToTfs2.Label = "Add Email To TFS";
-            this.btnAddEmailToTfs2.Name = "btnAddEmailToTfs2";
-            this.btnAddEmailToTfs2.ShowImage = true;
-            this.btnAddEmailToTfs2.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnAddEmailToTfs_Click);
             // 
             // tabNewMailMessage
             // 
@@ -114,6 +96,34 @@
             this.group3.Label = "TFS";
             this.group3.Name = "group3";
             // 
+            // btnAddEmailToTfs
+            // 
+            this.btnAddEmailToTfs.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnAddEmailToTfs.Image = ((System.Drawing.Image)(resources.GetObject("btnAddEmailToTfs.Image")));
+            this.btnAddEmailToTfs.Label = "Add Email To TFS";
+            this.btnAddEmailToTfs.Name = "btnAddEmailToTfs";
+            this.btnAddEmailToTfs.ShowImage = true;
+            this.btnAddEmailToTfs.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnAddEmailToTfs_Click);
+            // 
+            // btnSettings
+            // 
+            this.btnSettings.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnSettings.Label = "Settings";
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.OfficeImageId = "SetAsDefault";
+            this.btnSettings.ScreenTip = "Settings";
+            this.btnSettings.ShowImage = true;
+            this.btnSettings.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnSettings_Click);
+            // 
+            // btnAddEmailToTfs2
+            // 
+            this.btnAddEmailToTfs2.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.btnAddEmailToTfs2.Image = ((System.Drawing.Image)(resources.GetObject("btnAddEmailToTfs2.Image")));
+            this.btnAddEmailToTfs2.Label = "Add Email To TFS";
+            this.btnAddEmailToTfs2.Name = "btnAddEmailToTfs2";
+            this.btnAddEmailToTfs2.ShowImage = true;
+            this.btnAddEmailToTfs2.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnAddEmailToTfs_Click);
+            // 
             // button1
             // 
             this.button1.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -122,14 +132,6 @@
             this.button1.Name = "button1";
             this.button1.ShowImage = true;
             this.button1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnAddEmailToTfs_Click);
-            // 
-            // btnSettings
-            // 
-            this.btnSettings.Image = ((System.Drawing.Image)(resources.GetObject("btnSettings.Image")));
-            this.btnSettings.Label = "Settings";
-            this.btnSettings.Name = "btnSettings";
-            this.btnSettings.ShowImage = true;
-            this.btnSettings.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnSettings_Click);
             // 
             // OutlookTfsConnectorRibbon
             // 

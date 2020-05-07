@@ -33,6 +33,11 @@ namespace OutlookTfsConnector
             this.CenterToScreen();
             btnSaveNClose.Enabled = false;
 
+            cbProject.DataSource = Globals.ThisAddIn.Settings.TfsConfigurations;
+            cbProject.DisplayMember = "TfsProject";
+
+
+
             txtTitle.Text = _outlookCurrentMailItem.Subject;
             txtBody.Text = _outlookCurrentMailItem.Body;
 
@@ -53,7 +58,8 @@ namespace OutlookTfsConnector
 
         private void btnSaveNClose_Click(object sender, EventArgs e)
         {
-            var connection = new VssConnection(new Uri(_thisAddIn.TfsUrl), new VssBasicCredential(string.Empty, _thisAddIn.TfsUserToken));
+            var tfsConnection = Globals.ThisAddIn.Settings.TfsConfigurations[cbProject.SelectedIndex];
+            var connection = new VssConnection(new Uri(tfsConnection.TfsUrl), new VssBasicCredential(string.Empty, tfsConnection.TfsUserToken));
             var witClient = connection.GetClient<WorkItemTrackingHttpClient>();
 
             JsonPatchDocument patchDocument = new JsonPatchDocument();
@@ -138,7 +144,7 @@ namespace OutlookTfsConnector
             );
             */
 
-            WorkItem result = witClient.CreateWorkItemAsync(patchDocument, _thisAddIn.TfsProject, cbWorkItemType.Text).Result;
+            WorkItem result = witClient.CreateWorkItemAsync(patchDocument, tfsConnection.TfsProject, cbWorkItemType.Text).Result;
 
             List<string> saveFilePaths = new List<string>();
 

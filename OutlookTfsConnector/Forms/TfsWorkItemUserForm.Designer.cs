@@ -45,12 +45,14 @@
             this.label6 = new System.Windows.Forms.Label();
             this.cbSeverity = new System.Windows.Forms.ComboBox();
             this.btnSelectAll = new System.Windows.Forms.Button();
+            this.cbProject = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnClose
             // 
             this.btnClose.Location = new System.Drawing.Point(729, 631);
-            this.btnClose.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(4);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(119, 28);
             this.btnClose.TabIndex = 0;
@@ -67,7 +69,7 @@
             "Feature",
             "Issue"});
             this.cbWorkItemType.Location = new System.Drawing.Point(16, 34);
-            this.cbWorkItemType.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbWorkItemType.Margin = new System.Windows.Forms.Padding(4);
             this.cbWorkItemType.Name = "cbWorkItemType";
             this.cbWorkItemType.Size = new System.Drawing.Size(241, 24);
             this.cbWorkItemType.TabIndex = 1;
@@ -97,7 +99,7 @@
             // txtTitle
             // 
             this.txtTitle.Location = new System.Drawing.Point(16, 98);
-            this.txtTitle.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtTitle.Margin = new System.Windows.Forms.Padding(4);
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.Size = new System.Drawing.Size(831, 22);
             this.txtTitle.TabIndex = 4;
@@ -116,7 +118,7 @@
             // txtBody
             // 
             this.txtBody.Location = new System.Drawing.Point(16, 161);
-            this.txtBody.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBody.Margin = new System.Windows.Forms.Padding(4);
             this.txtBody.Multiline = true;
             this.txtBody.Name = "txtBody";
             this.txtBody.Size = new System.Drawing.Size(831, 216);
@@ -126,7 +128,7 @@
             // btnSaveNClose
             // 
             this.btnSaveNClose.Location = new System.Drawing.Point(600, 631);
-            this.btnSaveNClose.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSaveNClose.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveNClose.Name = "btnSaveNClose";
             this.btnSaveNClose.Size = new System.Drawing.Size(121, 28);
             this.btnSaveNClose.TabIndex = 7;
@@ -148,7 +150,7 @@
             // 
             this.chkLstBoxAttachements.FormattingEnabled = true;
             this.chkLstBoxAttachements.Location = new System.Drawing.Point(16, 416);
-            this.chkLstBoxAttachements.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkLstBoxAttachements.Margin = new System.Windows.Forms.Padding(4);
             this.chkLstBoxAttachements.Name = "chkLstBoxAttachements";
             this.chkLstBoxAttachements.Size = new System.Drawing.Size(379, 191);
             this.chkLstBoxAttachements.TabIndex = 9;
@@ -156,7 +158,7 @@
             // txtSystemInformation
             // 
             this.txtSystemInformation.Location = new System.Drawing.Point(424, 416);
-            this.txtSystemInformation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtSystemInformation.Margin = new System.Windows.Forms.Padding(4);
             this.txtSystemInformation.Multiline = true;
             this.txtSystemInformation.Name = "txtSystemInformation";
             this.txtSystemInformation.Size = new System.Drawing.Size(423, 207);
@@ -191,7 +193,7 @@
             "3",
             "4"});
             this.cbPriority.Location = new System.Drawing.Point(299, 34);
-            this.cbPriority.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbPriority.Margin = new System.Windows.Forms.Padding(4);
             this.cbPriority.Name = "cbPriority";
             this.cbPriority.Size = new System.Drawing.Size(96, 24);
             this.cbPriority.TabIndex = 13;
@@ -217,7 +219,7 @@
             "3 - Medium",
             "4 - Low"});
             this.cbSeverity.Location = new System.Drawing.Point(424, 34);
-            this.cbSeverity.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbSeverity.Margin = new System.Windows.Forms.Padding(4);
             this.cbSeverity.Name = "cbSeverity";
             this.cbSeverity.Size = new System.Drawing.Size(172, 24);
             this.cbSeverity.TabIndex = 15;
@@ -227,7 +229,7 @@
             // btnSelectAll
             // 
             this.btnSelectAll.Location = new System.Drawing.Point(16, 631);
-            this.btnSelectAll.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSelectAll.Margin = new System.Windows.Forms.Padding(4);
             this.btnSelectAll.Name = "btnSelectAll";
             this.btnSelectAll.Size = new System.Drawing.Size(243, 28);
             this.btnSelectAll.TabIndex = 16;
@@ -235,11 +237,33 @@
             this.btnSelectAll.UseVisualStyleBackColor = true;
             this.btnSelectAll.Click += new System.EventHandler(this.btnSelectAll_Click);
             // 
+            // cbProject
+            // 
+            this.cbProject.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbProject.FormattingEnabled = true;
+            this.cbProject.Location = new System.Drawing.Point(657, 34);
+            this.cbProject.Margin = new System.Windows.Forms.Padding(4);
+            this.cbProject.Name = "cbProject";
+            this.cbProject.Size = new System.Drawing.Size(172, 24);
+            this.cbProject.TabIndex = 18;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(654, 13);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(52, 17);
+            this.label7.TabIndex = 17;
+            this.label7.Text = "Project";
+            // 
             // TfsWorkItemUserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(876, 671);
+            this.Controls.Add(this.cbProject);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.btnSelectAll);
             this.Controls.Add(this.cbSeverity);
             this.Controls.Add(this.label6);
@@ -257,7 +281,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbWorkItemType);
             this.Controls.Add(this.btnClose);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "TfsWorkItemUserForm";
             this.Text = "TFS Work Item Information";
             this.ResumeLayout(false);
@@ -284,5 +308,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cbSeverity;
         private System.Windows.Forms.Button btnSelectAll;
+        private System.Windows.Forms.ComboBox cbProject;
+        private System.Windows.Forms.Label label7;
     }
 }

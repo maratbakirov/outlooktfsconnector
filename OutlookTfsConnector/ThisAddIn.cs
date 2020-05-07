@@ -8,34 +8,27 @@ using Office = Microsoft.Office.Core;
 using System.Windows.Forms;
 using System.IO;
 using System.Configuration;
+using OutlookTfsConnector.Code;
 
 namespace OutlookTfsConnector
 {
     public partial class ThisAddIn
     {
+        public Settings Settings { get; private set; }
+        //public bool EnableAddinFunctions { get { return _enableFunction; } }
 
-        public string TfsUrl { get { return _tfsUrl; } }
-        public string TfsProject { get { return _tfsProject; } }
-        public string TfsUserName { get { return _userName; } }
-        public string TfsUserToken { get { return _userToken; } }
-        public bool EnableAddinFunctions { get { return _enableFunction; } }
-
-        private string _tfsUrl;
-        private string _tfsProject;
-        private string _userName;
-        private string _userToken;
-
-        private bool _enableFunction;
+        //private bool _enableFunction;
 
         //private const string configFilePath = @"C:\Temp\OutlookTfsConfig\OutlookTfsAddinConfig.txt";
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
-            _enableFunction = true;
-            _tfsUrl = ConfigurationManager.AppSettings["TFS_URL"];
-            _tfsProject = ConfigurationManager.AppSettings["TFS_PROJECT"];
-            _userName = ConfigurationManager.AppSettings["TFS_USERNAME"];
-            _userToken = ConfigurationManager.AppSettings["TFS_USERTOKEN"];
+            if (Settings == null)
+            {
+                Settings = new Settings();
+                Settings.Load();
+            }
+            //_enableFunction = true;
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
