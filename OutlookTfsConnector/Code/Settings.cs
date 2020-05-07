@@ -61,11 +61,20 @@ namespace OutlookTfsConnector
                 var TfsConfigurationsCount = (int)key.GetValue("TfsConfigurationsCount");
                 for (int idx = 0; idx < TfsConfigurationsCount; idx++)
                 {
+                    var tfsUserToken = "";
+                    try
+                    {
+                        tfsUserToken = ((string)key.GetValue("TfsConfiguration" + idx + ".TfsUserToken")).Decrypt();
+                    }
+                    catch(Exception ex)
+                    {
+                        //TODO: log exception
+                    }
                     TfsConfigurations.Add(new TfsConfigurationItem(
                             (string)key.GetValue("TfsConfiguration" + idx + ".TfsUrl"),
                             (string)key.GetValue("TfsConfiguration" + idx + ".TfsProject"),
                             (string)key.GetValue("TfsConfiguration" + idx + ".TfsUserName"),
-                            ((string)key.GetValue("TfsConfiguration" + idx + ".TfsUserToken")).Decrypt()
+                            tfsUserToken
                         )); ;
                 }
             }
