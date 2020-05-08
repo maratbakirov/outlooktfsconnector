@@ -129,14 +129,14 @@ namespace OutlookTfsConnector
                 }
                 );
 
-            patchDocument.Add(
-                new JsonPatchOperation()
-                {
-                    Operation = Operation.Add,
-                    Path = "/fields/System.AssignedTo",
-                    Value = _exchangeUser.Name + " <" + _exchangeUser.PrimarySmtpAddress + ">"
-                }
-            );
+            //patchDocument.Add(
+            //    new JsonPatchOperation()
+            //    {
+            //        Operation = Operation.Add,
+            //        Path = "/fields/System.AssignedTo",
+            //        Value = _exchangeUser.Name + " <" + _exchangeUser.PrimarySmtpAddress + ">"
+            //    }
+            //);
 
             // add parent
             if (parentItem != null)
