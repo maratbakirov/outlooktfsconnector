@@ -49,9 +49,9 @@
             this.label7 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabNewItem = new System.Windows.Forms.TabPage();
-            this.tabUpdateItem = new System.Windows.Forms.TabPage();
-            this.label8 = new System.Windows.Forms.Label();
             this.txtParentItem = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tabUpdateItem = new System.Windows.Forms.TabPage();
             this.txtParentItemDetails = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabNewItem.SuspendLayout();
@@ -71,7 +71,6 @@
             // 
             // cbWorkItemType
             // 
-            this.cbWorkItemType.Enabled = false;
             this.cbWorkItemType.FormattingEnabled = true;
             this.cbWorkItemType.Items.AddRange(new object[] {
             "Task",
@@ -206,7 +205,6 @@
             // 
             // cbPriority
             // 
-            this.cbPriority.Enabled = false;
             this.cbPriority.FormattingEnabled = true;
             this.cbPriority.Items.AddRange(new object[] {
             "1",
@@ -233,7 +231,6 @@
             // 
             // cbSeverity
             // 
-            this.cbSeverity.Enabled = false;
             this.cbSeverity.FormattingEnabled = true;
             this.cbSeverity.Items.AddRange(new object[] {
             "1 - Critical",
@@ -310,15 +307,13 @@
             this.tabNewItem.Text = "NewItem";
             this.tabNewItem.UseVisualStyleBackColor = true;
             // 
-            // tabUpdateItem
+            // txtParentItem
             // 
-            this.tabUpdateItem.Location = new System.Drawing.Point(4, 25);
-            this.tabUpdateItem.Name = "tabUpdateItem";
-            this.tabUpdateItem.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUpdateItem.Size = new System.Drawing.Size(837, 92);
-            this.tabUpdateItem.TabIndex = 1;
-            this.tabUpdateItem.Text = "UpdateItem";
-            this.tabUpdateItem.UseVisualStyleBackColor = true;
+            this.txtParentItem.Location = new System.Drawing.Point(21, 26);
+            this.txtParentItem.Name = "txtParentItem";
+            this.txtParentItem.Size = new System.Drawing.Size(100, 22);
+            this.txtParentItem.TabIndex = 17;
+            this.txtParentItem.Leave += new System.EventHandler(this.txtParentItem_Leave);
             // 
             // label8
             // 
@@ -329,13 +324,15 @@
             this.label8.TabIndex = 16;
             this.label8.Text = "Parent Item Id";
             // 
-            // txtParentItem
+            // tabUpdateItem
             // 
-            this.txtParentItem.Location = new System.Drawing.Point(21, 26);
-            this.txtParentItem.Name = "txtParentItem";
-            this.txtParentItem.Size = new System.Drawing.Size(100, 22);
-            this.txtParentItem.TabIndex = 17;
-            this.txtParentItem.Leave += new System.EventHandler(this.txtParentItem_Leave);
+            this.tabUpdateItem.Location = new System.Drawing.Point(4, 25);
+            this.tabUpdateItem.Name = "tabUpdateItem";
+            this.tabUpdateItem.Padding = new System.Windows.Forms.Padding(3);
+            this.tabUpdateItem.Size = new System.Drawing.Size(837, 69);
+            this.tabUpdateItem.TabIndex = 1;
+            this.tabUpdateItem.Text = "UpdateItem";
+            this.tabUpdateItem.UseVisualStyleBackColor = true;
             // 
             // txtParentItemDetails
             // 

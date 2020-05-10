@@ -64,201 +64,38 @@ namespace OutlookTfsConnector
 
         private void btnSaveNClose_Click(object sender, EventArgs e)
         {
-            var tfsConnection = Globals.ThisAddIn.Settings.TfsConfigurations[cbProject.SelectedIndex];
-            WorkItemTrackingHttpClient witClient = GetVssClient(tfsConnection);
+            List<string> saveFilePaths = new List<string>();
+            var tempFolder = Environment.GetEnvironmentVariable("TEMP");
+            if (!tempFolder.EndsWith("\\"))
+            {
+                tempFolder += "\\";
+            }
+            tempFolder += "OutlookTfsAddin\\";
 
-            JsonPatchDocument patchDocument = new JsonPatchDocument();
+            try
+            {
+                Directory.CreateDirectory(tempFolder);
+                var tfsConnection = Globals.ThisAddIn.Settings.TfsConfigurations[cbProject.SelectedIndex];
+                WorkItemTrackingHttpClient witClient = GetVssClient(tfsConnection);
 
-            //add fields and their values to your patch document
-            patchDocument.Add(
-                new JsonPatchOperation()
-                {
-                    Operation = Operation.Add,
-                    Path = "/fields/System.Title",
-                    Value = txtTitle.Text
-                }
-            );
+                JsonPatchDocument patchDocument = new JsonPatchDocument();
 
-            StringBuilder bodyText = new StringBuilder();
-            bodyText.Append(txtBody.Text.Replace(Environment.NewLine, "<br/>"));
-            bodyText.Append("<br/>");
-            bodyText.Append("From : " + _outlookCurrentMailItem.SenderName + " (" + GetSenderEmailAddress(_outlookCurrentMailItem) + ")");
-
-            patchDocument.Add(
-                new JsonPatchOperation()
-                {
-                    Operation = Operation.Add,
-                    Path = "/fields/Microsoft.VSTS.TCM.ReproSteps",
-                    Value = bodyText.ToString()
-                }
-            );
-
-            patchDocument.Add(
-                new JsonPatchOperation()
-                {
-                    Operation = Operation.Add,
-                    Path = "/fields/System.Description",
-                    Value = bodyText.ToString()
-                }
-            );
-
-            patchDocument.Add(
-                new JsonPatchOperation()
-                {
-                    Operation = Operation.Add,
-                    Path = "/fields/Microsoft.VSTS.TCM.SystemInfo",
-                    Value = txtSystemInformation.Text
-                }
-            );
-
-            patchDocument.Add(
-                new JsonPatchOperation()
-                {
-                    Operation = Operation.Add,
-                    Path = "/fields/Microsoft.VSTS.Common.Priority",
-                    Value = cbPriority.Text
-                }
-            );
-
-            patchDocument.Add(
-                new JsonPatchOperation()
-                {
-                    Operation = Operation.Add,
-                    Path = "/fields/Microsoft.VSTS.Common.Severity",
-                    Value = cbSeverity.Text
-                }
+                //add fields and their values to your patch document
+                patchDocument.Add(
+                    new JsonPatchOperation()
+                    {
+                        Operation = Operation.Add,
+                        Path = "/fields/System.Title",
+                        Value = txtTitle.Text
+                    }
                 );
 
-            //patchDocument.Add(
-            //    new JsonPatchOperation()
-            //    {
-            //        Operation = Operation.Add,
-            //        Path = "/fields/System.AssignedTo",
-            //        Value = _exchangeUser.Name + " <" + _exchangeUser.PrimarySmtpAddress + ">"
-            //    }
-            //);
-
-            // add parent
-            if (parentItem != null)
-            {
-                patchDocument.Add(new Microsoft.VisualStudio.Services.WebApi.Patch.Json.JsonPatchOperation()
-                {
-                    Operation = Operation.Add,
-                    Path = "/relations/-",
-                    Value = new
-                    {
-                        rel = "System.LinkTypes.Hierarchy-Reverse",
-                        url = tfsConnection.TfsUrl + tfsConnection.TfsProject + "/_apis/wit/workItems/" + parentItem.Id,
-                        attributes = new
-                        {
-                            comment = "link parent WIT"
-                        }
-                    }
-                });
-
-                var fieldsToInherit = new string[] { "System.AreaPath", "System.IterationPath" };
-
-                foreach(var fieldToInherit in fieldsToInherit)
-                {
-                    if (parentItem.Fields.ContainsKey(fieldToInherit))
-                    {
-                        patchDocument.Add(
-                            new JsonPatchOperation()
-                            {
-                                Operation = Operation.Add,
-                                Path = "/fields/" + fieldToInherit,
-                                Value = parentItem.Fields[fieldToInherit]
-                            }
-                        ); ;
-                    }
-                }
-                
-            }
-
-            /*
-            patchDocument.Add(
-                new JsonPatchOperation()
-                {
-                    Operation = Operation.Add,
-                    Path = "/fields/Microsoft.VSTS.Common.ReviewedBy",
-                    Value = _outlookCurrentMailItem.SenderName + " <" + _outlookCurrentMailItem.Sender.GetExchangeUser().PrimarySmtpAddress + ">"
-                }
-            );
-            */
-
-            WorkItem result = witClient.CreateWorkItemAsync(patchDocument, tfsConnection.TfsProject, cbWorkItemType.Text).Result;
-
-
-
-            //// add files
-
-            List<string> saveFilePaths = new List<string>();
-
-            for (int i = 0; i < chkLstBoxAttachements.Items.Count; i++)
-            {
-                if (chkLstBoxAttachements.GetItemChecked(i))
-                {
-
-                    string fPath = ConfigurationManager.AppSettings["TMP_ATTACH_FOLDER"] + _outlookCurrentMailItem.Attachments[i + 1].FileName;
-                    saveFilePaths.Add(fPath);
-                    _outlookCurrentMailItem.Attachments[i + 1].SaveAsFile(fPath);
-                }
-            }
-
-        
-            if (saveFilePaths.Count > 0)
-            {
-                JsonPatchDocument attachDocument = new JsonPatchDocument();
-                List<string> uploadedAttachementUrl = new List<string>();
-                foreach (string fp in saveFilePaths)
-                {
-                    AttachmentReference attachment = null;
-
-                    Task taskAttach = new Task(() => { attachment = witClient.CreateAttachmentAsync(fp).Result; });
-                    taskAttach.Start();
-                    Task.WaitAll(new[] { taskAttach });
-
-                    attachDocument.Add(
-                         new JsonPatchOperation()
-                         {
-                             Operation = Operation.Add,
-                             Path = "/relations/-",
-                             Value = new
-                             {
-                                 rel = "AttachedFile",
-                                 url = attachment.Url,
-
-                                 attributes = new
-                                 {
-                                     name = Path.GetFileName(fp),
-                                     comment = "Adding new attachment for item, Outlook TFS Add-in"
-                                 }
-                             }
-                         }
-                     );
-                    uploadedAttachementUrl.Add(attachment.Url);
-                }
-
-                WorkItem attachmentResult = witClient.UpdateWorkItemAsync(attachDocument, result.Id.Value).Result;
-
-                foreach (string fp in saveFilePaths)
-                {
-                    if(File.Exists(fp))
-                        File.Delete(fp);
-                }
-
-
-                //Prepare new body text
-
+                StringBuilder bodyText = new StringBuilder();
+                bodyText.Append(txtBody.Text.Replace(Environment.NewLine, "<br/>"));
                 bodyText.Append("<br/>");
-                foreach (string ustr in uploadedAttachementUrl)
-                {
-                    bodyText.Append("<br/>");
-                    bodyText.Append(String.Format("<img src =\"{0}\"/> " , ustr));
-                }
+                bodyText.Append("From : " + _outlookCurrentMailItem.SenderName + " (" + GetSenderEmailAddress(_outlookCurrentMailItem) + ")");
 
-                JsonPatchDocument updatedItemBody = new JsonPatchDocument();
-                updatedItemBody.Add(
+                patchDocument.Add(
                     new JsonPatchOperation()
                     {
                         Operation = Operation.Add,
@@ -267,7 +104,7 @@ namespace OutlookTfsConnector
                     }
                 );
 
-                updatedItemBody.Add(
+                patchDocument.Add(
                     new JsonPatchOperation()
                     {
                         Operation = Operation.Add,
@@ -276,15 +113,204 @@ namespace OutlookTfsConnector
                     }
                 );
 
-                WorkItem finalResult = witClient.UpdateWorkItemAsync(updatedItemBody, result.Id.Value).Result;
+                patchDocument.Add(
+                    new JsonPatchOperation()
+                    {
+                        Operation = Operation.Add,
+                        Path = "/fields/Microsoft.VSTS.TCM.SystemInfo",
+                        Value = txtSystemInformation.Text
+                    }
+                );
 
-                MessageBox.Show("Item Created Sucessfully, with ID: " + finalResult.Id + "\r\n\r\n" + finalResult.Url , "Item Created With Attachement");
+                patchDocument.Add(
+                    new JsonPatchOperation()
+                    {
+                        Operation = Operation.Add,
+                        Path = "/fields/Microsoft.VSTS.Common.Priority",
+                        Value = cbPriority.Text
+                    }
+                );
+
+                patchDocument.Add(
+                    new JsonPatchOperation()
+                    {
+                        Operation = Operation.Add,
+                        Path = "/fields/Microsoft.VSTS.Common.Severity",
+                        Value = cbSeverity.Text
+                    }
+                    );
+
+                //TODO:
+                //patchDocument.Add(
+                //    new JsonPatchOperation()
+                //    {
+                //        Operation = Operation.Add,
+                //        Path = "/fields/System.AssignedTo",
+                //        Value = _exchangeUser.Name + " <" + _exchangeUser.PrimarySmtpAddress + ">"
+                //    }
+                //);
+
+                // add parent
+                if (parentItem != null)
+                {
+                    patchDocument.Add(new Microsoft.VisualStudio.Services.WebApi.Patch.Json.JsonPatchOperation()
+                    {
+                        Operation = Operation.Add,
+                        Path = "/relations/-",
+                        Value = new
+                        {
+                            rel = "System.LinkTypes.Hierarchy-Reverse",
+                            url = tfsConnection.TfsUrl + tfsConnection.TfsProject + "/_apis/wit/workItems/" + parentItem.Id,
+                            attributes = new
+                            {
+                                comment = "link parent WIT"
+                            }
+                        }
+                    });
+
+                    var fieldsToInherit = new string[] { "System.AreaPath", "System.IterationPath" };
+
+                    foreach (var fieldToInherit in fieldsToInherit)
+                    {
+                        if (parentItem.Fields.ContainsKey(fieldToInherit))
+                        {
+                            patchDocument.Add(
+                                new JsonPatchOperation()
+                                {
+                                    Operation = Operation.Add,
+                                    Path = "/fields/" + fieldToInherit,
+                                    Value = parentItem.Fields[fieldToInherit]
+                                }
+                            ); ;
+                        }
+                    }
+
+                }
+
+                /*
+                patchDocument.Add(
+                    new JsonPatchOperation()
+                    {
+                        Operation = Operation.Add,
+                        Path = "/fields/Microsoft.VSTS.Common.ReviewedBy",
+                        Value = _outlookCurrentMailItem.SenderName + " <" + _outlookCurrentMailItem.Sender.GetExchangeUser().PrimarySmtpAddress + ">"
+                    }
+                );
+                */
+
+                WorkItem result = witClient.CreateWorkItemAsync(patchDocument, tfsConnection.TfsProject, cbWorkItemType.Text).Result;
+
+
+
+                //// add files
+
+
+                for (int i = 0; i < chkLstBoxAttachements.Items.Count; i++)
+                {
+                    if (chkLstBoxAttachements.GetItemChecked(i))
+                    {
+                        var filename = _outlookCurrentMailItem.Attachments[i + 1].FileName;
+                        filename = filename.Replace(" ", "_");
+                        string fPath = tempFolder + filename;
+                        saveFilePaths.Add(fPath);
+                        _outlookCurrentMailItem.Attachments[i + 1].SaveAsFile(fPath);
+                    }
+                }
+
+
+                if (saveFilePaths.Count > 0)
+                {
+                    JsonPatchDocument attachDocument = new JsonPatchDocument();
+                    List<string> uploadedAttachementUrl = new List<string>();
+                    foreach (string fp in saveFilePaths)
+                    {
+                        AttachmentReference attachment = null;
+
+                        Task taskAttach = new Task(() => { attachment = witClient.CreateAttachmentAsync(fp).Result; });
+                        taskAttach.Start();
+                        Task.WaitAll(new[] { taskAttach });
+
+                        attachDocument.Add(
+                             new JsonPatchOperation()
+                             {
+                                 Operation = Operation.Add,
+                                 Path = "/relations/-",
+                                 Value = new
+                                 {
+                                     rel = "AttachedFile",
+                                     url = attachment.Url,
+
+                                     attributes = new
+                                     {
+                                         name = Path.GetFileName(fp),
+                                         comment = "Adding new attachment for item, Outlook TFS Add-in"
+                                     }
+                                 }
+                             }
+                         );
+                        uploadedAttachementUrl.Add(attachment.Url);
+                    }
+
+                    WorkItem attachmentResult = witClient.UpdateWorkItemAsync(attachDocument, result.Id.Value).Result;
+
+
+                    //Prepare new body text
+
+                    bodyText.Append("<br/>");
+                    foreach (string ustr in uploadedAttachementUrl)
+                    {
+                        bodyText.Append("<br/>");
+                        bodyText.Append(String.Format("<img src =\"{0}\"/> ", ustr));
+                    }
+
+                    JsonPatchDocument updatedItemBody = new JsonPatchDocument();
+                    updatedItemBody.Add(
+                        new JsonPatchOperation()
+                        {
+                            Operation = Operation.Add,
+                            Path = "/fields/Microsoft.VSTS.TCM.ReproSteps",
+                            Value = bodyText.ToString()
+                        }
+                    );
+
+                    updatedItemBody.Add(
+                        new JsonPatchOperation()
+                        {
+                            Operation = Operation.Add,
+                            Path = "/fields/System.Description",
+                            Value = bodyText.ToString()
+                        }
+                    );
+
+                    WorkItem finalResult = witClient.UpdateWorkItemAsync(updatedItemBody, result.Id.Value).Result;
+
+                    MessageBox.Show("Item Created Sucessfully, with ID: " + finalResult.Id + "\r\n\r\n" + finalResult.Url, "Item Created With Attachement");
+                }
+                else
+                {
+                    MessageBox.Show("Item Created Sucessfully, with ID: " + result.Id + "\r\n\r\n" + result.Url, "Item Created");
+                }
             }
-            else
+            catch (System.Exception ex)
             {
-                MessageBox.Show("Item Created Sucessfully, with ID: " + result.Id + "\r\n\r\n" + result.Url, "Item Created");
+                MessageBox.Show(ex.Message);
             }
+            finally
+            {
+                try
+                {
+                    foreach (string fp in saveFilePaths)
+                    {
+                        if (File.Exists(fp))
+                            File.Delete(fp);
+                    }
+                }
+                catch(System.Exception ex)
+                {
+                    //TODO: silently log?
+                }
 
+            }
             this.Close();
             this.Dispose();
         }
