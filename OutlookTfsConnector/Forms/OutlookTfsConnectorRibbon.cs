@@ -49,6 +49,20 @@ namespace OutlookTfsConnector
                 }
             }
         }
+        private void btnAddEmailToTfsNewEmail_Click(object sender, RibbonControlEventArgs e)
+        {
+            var context = e.Control.Context;
+            var mailItem = context.CurrentItem as MailItem;
+
+            ExchangeUser currentOutlookUser = outlookApp.Session.CurrentUser.
+            AddressEntry.GetExchangeUser();
+
+            if (mailItem != null)
+            {
+                TfsWorkItemUserForm userForm = new TfsWorkItemUserForm(mailItem, outlookAddin, currentOutlookUser);
+                userForm.ShowDialog();
+            }
+        }
 
         private void btnSettings_Click(object sender, RibbonControlEventArgs e)
         {

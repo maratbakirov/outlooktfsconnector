@@ -47,6 +47,10 @@ namespace OutlookTfsConnector
 
         public static string GetFileName(this string source)
         {
+            if (source == null)
+            {
+                return "";
+            }
             StringBuilder result = new StringBuilder();
             foreach(char c in source.ToCharArray())
             {

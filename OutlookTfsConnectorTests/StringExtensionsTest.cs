@@ -17,5 +17,10 @@ namespace OutlookTfsConnectorTests
         {
             Assert.AreEqual("____", ">< \"".GetFileName());
         }
+        [TestMethod]
+        public void TestMethod3()
+        {
+            Assert.AreEqual("", ((string)null).GetFileName());
+        }
     }
 }

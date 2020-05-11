@@ -30,6 +30,8 @@ namespace OutlookTfsConnector
         bool parentItemValidated = false;
         bool existingItemValidated = false;
 
+        static HashSet<string> imageExtensions = new HashSet<string> { ".jpg",".png",".bmp"};
+
         public TfsWorkItemUserForm(Microsoft.Office.Interop.Outlook.MailItem outlookCurrentMailItem , ThisAddIn thisAddIn, ExchangeUser exchangeUser)
         {
             _outlookCurrentMailItem = outlookCurrentMailItem;
@@ -38,6 +40,8 @@ namespace OutlookTfsConnector
             InitializeComponent();
             this.CenterToScreen();
             btnSaveNClose.Enabled = false;
+
+            txtTitle.Text = _outlookCurrentMailItem.Subject;
 
             cbProject.DataSource = Globals.ThisAddIn.Settings.TfsConfigurations;
             cbProject.DisplayMember = "TfsProject";
@@ -274,8 +278,12 @@ namespace OutlookTfsConnector
                     bodyText.Append("<br/>");
                     foreach (string ustr in uploadedAttachementUrl)
                     {
-                        bodyText.Append("<br/>");
-                        bodyText.Append(String.Format("<img src =\"{0}\"/> ", ustr));
+                        var extension = System.IO.Path.GetExtension(ustr).ToLower();
+                        if (imageExtensions.Contains(extension))
+                        {
+                            bodyText.Append("<br/>");
+                            bodyText.Append(String.Format("<img src =\"{0}\"/> ", ustr));
+                        }
                     }
 
                     JsonPatchDocument updatedItemBody = new JsonPatchDocument();
@@ -340,22 +348,37 @@ namespace OutlookTfsConnector
 
         private string GetSenderEmailAddress(MailItem mail)
         {
-            AddressEntry sender = mail.Sender;
             string SenderEmailAddress = "";
-
-            if (sender.AddressEntryUserType == OlAddressEntryUserType.olExchangeUserAddressEntry || sender.AddressEntryUserType == OlAddressEntryUserType.olExchangeRemoteUserAddressEntry)
+            try
             {
-                ExchangeUser exchUser = sender.GetExchangeUser();
-                if (exchUser != null)
+                AddressEntry sender = mail.Sender;
+                var outlookApp = Globals.ThisAddIn.Application as Microsoft.Office.Interop.Outlook.Application;
+
+                if (sender == null)
                 {
+                    ExchangeUser exchUser = outlookApp.Session.CurrentUser.AddressEntry.GetExchangeUser();
                     SenderEmailAddress = exchUser.PrimarySmtpAddress;
-                }
-            }
-            else
-            {
-                SenderEmailAddress = mail.SenderEmailAddress;
-            }
 
+                }
+                else
+                if (sender.AddressEntryUserType == OlAddressEntryUserType.olExchangeUserAddressEntry || sender.AddressEntryUserType == OlAddressEntryUserType.olExchangeRemoteUserAddressEntry)
+                {
+                    ExchangeUser exchUser = sender.GetExchangeUser();
+                    if (exchUser != null)
+                    {
+                        SenderEmailAddress = exchUser.PrimarySmtpAddress;
+                    }
+                }
+                else
+                {
+                    SenderEmailAddress = mail.SenderEmailAddress;
+                }
+
+            }
+            catch(System.Exception ex)
+            {
+                MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             return SenderEmailAddress;
         }
 
