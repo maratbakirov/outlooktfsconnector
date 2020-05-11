@@ -49,12 +49,15 @@ namespace OutlookTfsConnector
 
             lblAttachements.Text = lblAttachements.Text + _outlookCurrentMailItem.Attachments.Count;
 
+            
+            chkLstBoxAttachements.Items.Add("<MSG>, size:"+ _outlookCurrentMailItem.Size/1024+"K", true);
             for (int i = 1; i <= _outlookCurrentMailItem.Attachments.Count; i++)
             {
                 chkLstBoxAttachements.Items.Add(_outlookCurrentMailItem.Attachments[i].FileName, false);
             }
 
         }
+
 
         private void btnClose_Click(object sender, EventArgs e)
         {
@@ -64,8 +67,9 @@ namespace OutlookTfsConnector
 
         private void btnSaveNClose_Click(object sender, EventArgs e)
         {
+            btnSaveNClose.Enabled = false;
             List<string> saveFilePaths = new List<string>();
-            var tempFolder = Environment.GetEnvironmentVariable("TEMP");
+            var tempFolder = System.IO.Path.GetTempPath();
             if (!tempFolder.EndsWith("\\"))
             {
                 tempFolder += "\\";
@@ -204,19 +208,30 @@ namespace OutlookTfsConnector
 
                 //// add files
 
+                if (chkLstBoxAttachements.GetItemChecked(0))
+                {
+                    var subject = _outlookCurrentMailItem.Subject.GetFileName() 
+                        +".msg";
+                    string allMessage = tempFolder + subject;
+                    saveFilePaths.Add(allMessage);
+                    _outlookCurrentMailItem.SaveAs(allMessage,
+                        OlSaveAsType.olMSG);
 
-                for (int i = 0; i < chkLstBoxAttachements.Items.Count; i++)
+                }
+
+                // this is not a mistake, the first checkbox is reserved for the whole message, 
+                // and the outlook attachments weirdly is numbered from 1
+                for (int i = 1; i < chkLstBoxAttachements.Items.Count; i++)
                 {
                     if (chkLstBoxAttachements.GetItemChecked(i))
                     {
-                        var filename = _outlookCurrentMailItem.Attachments[i + 1].FileName;
-                        filename = filename.Replace(" ", "_");
+                        var filename = _outlookCurrentMailItem.Attachments[i].FileName;
+                        filename = filename.GetFileName();
                         string fPath = tempFolder + filename;
                         saveFilePaths.Add(fPath);
-                        _outlookCurrentMailItem.Attachments[i + 1].SaveAsFile(fPath);
+                        _outlookCurrentMailItem.Attachments[i].SaveAsFile(fPath);
                     }
                 }
-
 
                 if (saveFilePaths.Count > 0)
                 {
@@ -290,6 +305,9 @@ namespace OutlookTfsConnector
                 {
                     MessageBox.Show("Item Created Sucessfully, with ID: " + result.Id + "\r\n\r\n" + result.Url, "Item Created");
                 }
+                this.Close();
+                this.Dispose();
+
             }
             catch (System.Exception ex)
             {
@@ -309,10 +327,8 @@ namespace OutlookTfsConnector
                 {
                     //TODO: silently log?
                 }
-
+                CheckAndEnableSaveButton();
             }
-            this.Close();
-            this.Dispose();
         }
 
         private static WorkItemTrackingHttpClient GetVssClient(TfsConfigurationItem tfsConnection)

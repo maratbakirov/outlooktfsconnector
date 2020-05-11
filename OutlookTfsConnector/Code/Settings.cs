@@ -47,12 +47,6 @@ namespace OutlookTfsConnector
 
         public void Load()
         {
-            //TODO: load from registry
-            //TfsConfigurations[0].TfsUrl = ConfigurationManager.AppSettings["TFS_URL"];
-            //TfsConfigurations[0].TfsProject = ConfigurationManager.AppSettings["TFS_PROJECT"];
-            //TfsConfigurations[0].TfsUserName = ConfigurationManager.AppSettings["TFS_USERNAME"];
-            //TfsConfigurations[0].TfsUserToken = ConfigurationManager.AppSettings["TFS_USERTOKEN"];
-
             try
             {
 
@@ -92,7 +86,6 @@ namespace OutlookTfsConnector
         public void Save()
         {
             FixAllUrls();
-            //TODO: save to registry
             RegistryKey key = Registry.CurrentUser.CreateSubKey(RegisrtyPath);
             key.SetValue("RegexToParseEmailSubjects", RegexToParseEmailSubjects);
             key.SetValue("TfsConfigurationsCount", TfsConfigurations.Count);

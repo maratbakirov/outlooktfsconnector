@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutlookTfsConnector", "Outl
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "OutlookTfsSetup", "OutlookTfsSetup\OutlookTfsSetup.vdproj", "{377927A9-B8A7-401A-BBDC-A1B90B9809C4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutlookTfsConnectorTests", "OUtlookTfsConnectorTests\OutlookTfsConnectorTests.csproj", "{741F5EAD-D76D-4826-BC27-7A00D654CE5D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{E14CFC45-E18D-4553-B86D-71F47D23AD6E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{377927A9-B8A7-401A-BBDC-A1B90B9809C4}.Debug|Any CPU.ActiveCfg = Debug
 		{377927A9-B8A7-401A-BBDC-A1B90B9809C4}.Release|Any CPU.ActiveCfg = Release
+		{741F5EAD-D76D-4826-BC27-7A00D654CE5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{741F5EAD-D76D-4826-BC27-7A00D654CE5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{741F5EAD-D76D-4826-BC27-7A00D654CE5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{741F5EAD-D76D-4826-BC27-7A00D654CE5D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

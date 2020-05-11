@@ -8,6 +8,21 @@ namespace OutlookTfsConnector
 {
     public static class StringExtensions
     {
+        static HashSet<char> invalidCharsSet = new HashSet<char>();
+        static StringExtensions(){
+            foreach (char c in System.IO.Path.GetInvalidFileNameChars())
+            {
+                invalidCharsSet.Add(c);
+            }
+            foreach (char c in System.IO.Path.GetInvalidPathChars())
+            {
+                invalidCharsSet.Add(c);
+            }
+            invalidCharsSet.Add(' ');
+        }
+
+
+
         /// <summary>
         ///     Returns a string array that contains the substrings in this instance that are delimited by specified indexes.
         /// </summary>
@@ -27,6 +42,24 @@ namespace OutlookTfsConnector
 
             output[index.Length] = source.Substring(pos);
             return output;
+        }
+
+
+        public static string GetFileName(this string source)
+        {
+            StringBuilder result = new StringBuilder();
+            foreach(char c in source.ToCharArray())
+            {
+                if (invalidCharsSet.Contains(c))
+                {
+                    result.Append('_');
+                }    
+                else
+                {
+                    result.Append(c);
+                }
+            }
+            return result.ToString();
         }
     }
 }
