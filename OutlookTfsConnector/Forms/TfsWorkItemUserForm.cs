@@ -49,7 +49,33 @@ namespace OutlookTfsConnector
 
 
             txtTitle.Text = _outlookCurrentMailItem.Subject;
-            txtBody.Text = _outlookCurrentMailItem.Body;
+
+            var newLine = "<br/>" + Environment.NewLine;
+
+            StringBuilder bodyText = new StringBuilder();
+            bodyText.Append("From : " + (_outlookCurrentMailItem.SenderName??"") + 
+                " (" + (GetSenderEmailAddress(_outlookCurrentMailItem.Sender)??_outlookCurrentMailItem.SenderEmailAddress) + ")" +
+                newLine);
+            bodyText.Append("To : " + (_outlookCurrentMailItem.To ?? "") + newLine);
+            if (!string.IsNullOrEmpty(_outlookCurrentMailItem.CC))
+            {
+                bodyText.Append("CC : " + (_outlookCurrentMailItem.CC ?? "") + newLine);
+            }
+            if (!string.IsNullOrEmpty(_outlookCurrentMailItem.BCC))
+            {
+                bodyText.Append("BCC : " + (_outlookCurrentMailItem.BCC ?? "") + newLine);
+            }
+            if (!string.IsNullOrEmpty(_outlookCurrentMailItem.Subject))
+            {
+                bodyText.Append("Subject : " + (_outlookCurrentMailItem.Subject ?? "") + newLine);
+            }
+            bodyText.Append("Sent : " +_outlookCurrentMailItem.SentOn + newLine);
+
+            bodyText.Append("-----------------------------------------" + newLine);
+            bodyText.Append(_outlookCurrentMailItem.Body.Replace(Environment.NewLine, newLine));
+
+
+            txtBody.Text = bodyText.ToString();
 
             lblAttachements.Text = lblAttachements.Text + _outlookCurrentMailItem.Attachments.Count;
 
@@ -98,10 +124,7 @@ namespace OutlookTfsConnector
                     }
                 );
 
-                StringBuilder bodyText = new StringBuilder();
-                bodyText.Append(txtBody.Text.Replace(Environment.NewLine, "<br/>"));
-                bodyText.Append("<br/>");
-                bodyText.Append("From : " + _outlookCurrentMailItem.SenderName + " (" + GetSenderEmailAddress(_outlookCurrentMailItem) + ")");
+                var bodyText =  new StringBuilder(txtBody.Text);
 
                 patchDocument.Add(
                     new JsonPatchOperation()
@@ -346,12 +369,11 @@ namespace OutlookTfsConnector
             return witClient;
         }
 
-        private string GetSenderEmailAddress(MailItem mail)
+        private string GetSenderEmailAddress(AddressEntry sender)
         {
-            string SenderEmailAddress = "";
+            string SenderEmailAddress = null;
             try
             {
-                AddressEntry sender = mail.Sender;
                 var outlookApp = Globals.ThisAddIn.Application as Microsoft.Office.Interop.Outlook.Application;
 
                 if (sender == null)
@@ -369,10 +391,10 @@ namespace OutlookTfsConnector
                         SenderEmailAddress = exchUser.PrimarySmtpAddress;
                     }
                 }
-                else
-                {
-                    SenderEmailAddress = mail.SenderEmailAddress;
-                }
+                //else
+                //{
+                //    SenderEmailAddress = mail.SenderEmailAddress;
+                //}
 
             }
             catch(System.Exception ex)
