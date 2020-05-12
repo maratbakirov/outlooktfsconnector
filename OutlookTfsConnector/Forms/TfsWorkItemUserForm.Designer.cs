@@ -52,9 +52,12 @@
             this.txtParentItem = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.tabUpdateItem = new System.Windows.Forms.TabPage();
-            this.txtParentItemDetails = new System.Windows.Forms.TextBox();
+            this.txtLogMessage = new System.Windows.Forms.TextBox();
+            this.txtExistingItemId = new System.Windows.Forms.TextBox();
+            this.lblExistingItemId = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabNewItem.SuspendLayout();
+            this.tabUpdateItem.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnClose
@@ -133,6 +136,7 @@
             this.txtBody.Margin = new System.Windows.Forms.Padding(4);
             this.txtBody.Multiline = true;
             this.txtBody.Name = "txtBody";
+            this.txtBody.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtBody.Size = new System.Drawing.Size(844, 179);
             this.txtBody.TabIndex = 6;
             this.txtBody.TextChanged += new System.EventHandler(this.txtBody_TextChanged);
@@ -168,6 +172,7 @@
             this.chkLstBoxAttachements.Location = new System.Drawing.Point(16, 471);
             this.chkLstBoxAttachements.Margin = new System.Windows.Forms.Padding(4);
             this.chkLstBoxAttachements.Name = "chkLstBoxAttachements";
+            this.chkLstBoxAttachements.ScrollAlwaysVisible = true;
             this.chkLstBoxAttachements.Size = new System.Drawing.Size(379, 191);
             this.chkLstBoxAttachements.TabIndex = 9;
             // 
@@ -179,6 +184,7 @@
             this.txtSystemInformation.Margin = new System.Windows.Forms.Padding(4);
             this.txtSystemInformation.Multiline = true;
             this.txtSystemInformation.Name = "txtSystemInformation";
+            this.txtSystemInformation.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtSystemInformation.Size = new System.Drawing.Size(436, 207);
             this.txtSystemInformation.TabIndex = 10;
             // 
@@ -288,6 +294,7 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(845, 98);
             this.tabControl1.TabIndex = 19;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabNewItem
             // 
@@ -326,6 +333,8 @@
             // 
             // tabUpdateItem
             // 
+            this.tabUpdateItem.Controls.Add(this.txtExistingItemId);
+            this.tabUpdateItem.Controls.Add(this.lblExistingItemId);
             this.tabUpdateItem.Location = new System.Drawing.Point(4, 25);
             this.tabUpdateItem.Name = "tabUpdateItem";
             this.tabUpdateItem.Padding = new System.Windows.Forms.Padding(3);
@@ -334,22 +343,39 @@
             this.tabUpdateItem.Text = "UpdateItem";
             this.tabUpdateItem.UseVisualStyleBackColor = true;
             // 
-            // txtParentItemDetails
+            // txtLogMessage
             // 
-            this.txtParentItemDetails.Location = new System.Drawing.Point(16, 117);
-            this.txtParentItemDetails.Multiline = true;
-            this.txtParentItemDetails.Name = "txtParentItemDetails";
-            this.txtParentItemDetails.ReadOnly = true;
-            this.txtParentItemDetails.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtParentItemDetails.Size = new System.Drawing.Size(847, 41);
-            this.txtParentItemDetails.TabIndex = 18;
+            this.txtLogMessage.Location = new System.Drawing.Point(16, 117);
+            this.txtLogMessage.Multiline = true;
+            this.txtLogMessage.Name = "txtLogMessage";
+            this.txtLogMessage.ReadOnly = true;
+            this.txtLogMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtLogMessage.Size = new System.Drawing.Size(847, 41);
+            this.txtLogMessage.TabIndex = 18;
+            // 
+            // txtExistingItemId
+            // 
+            this.txtExistingItemId.Location = new System.Drawing.Point(17, 35);
+            this.txtExistingItemId.Name = "txtExistingItemId";
+            this.txtExistingItemId.Size = new System.Drawing.Size(100, 22);
+            this.txtExistingItemId.TabIndex = 19;
+            this.txtExistingItemId.Leave += new System.EventHandler(this.txtExistingItemId_Leave);
+            // 
+            // lblExistingItemId
+            // 
+            this.lblExistingItemId.AutoSize = true;
+            this.lblExistingItemId.Location = new System.Drawing.Point(15, 12);
+            this.lblExistingItemId.Name = "lblExistingItemId";
+            this.lblExistingItemId.Size = new System.Drawing.Size(101, 17);
+            this.lblExistingItemId.TabIndex = 18;
+            this.lblExistingItemId.Text = "Existing Item Id";
             // 
             // TfsWorkItemUserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(889, 726);
-            this.Controls.Add(this.txtParentItemDetails);
+            this.Controls.Add(this.txtLogMessage);
             this.Controls.Add(this.cbProject);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.btnSelectAll);
@@ -370,6 +396,8 @@
             this.tabControl1.ResumeLayout(false);
             this.tabNewItem.ResumeLayout(false);
             this.tabNewItem.PerformLayout();
+            this.tabUpdateItem.ResumeLayout(false);
+            this.tabUpdateItem.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -401,6 +429,8 @@
         private System.Windows.Forms.TabPage tabNewItem;
         private System.Windows.Forms.TextBox txtParentItem;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox txtParentItemDetails;
+        private System.Windows.Forms.TextBox txtLogMessage;
+        private System.Windows.Forms.TextBox txtExistingItemId;
+        private System.Windows.Forms.Label lblExistingItemId;
     }
 }
