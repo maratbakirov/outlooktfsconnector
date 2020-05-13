@@ -84,7 +84,10 @@ namespace OutlookTfsConnector
             chkLstBoxAttachements.Items.Add("<MSG>, size:"+ _outlookCurrentMailItem.Size/1024+"K", true);
             for (int i = 1; i <= _outlookCurrentMailItem.Attachments.Count; i++)
             {
-                chkLstBoxAttachements.Items.Add(_outlookCurrentMailItem.Attachments[i].FileName, false);
+                chkLstBoxAttachements.Items.Add(string.Format("{0}, size:{1}K",
+                    _outlookCurrentMailItem.Attachments[i].FileName,
+                    _outlookCurrentMailItem.Attachments[i].Size/1024),
+                    false);
             }
 
         }
