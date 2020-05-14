@@ -41,6 +41,7 @@ namespace OutlookTfsConnector
             InitializeComponent();
             this.CenterToScreen();
             btnSaveNClose.Enabled = false;
+            btnSave.Enabled = false;
 
             txtTitle.Text = _outlookCurrentMailItem.Subject;
 
@@ -101,10 +102,18 @@ namespace OutlookTfsConnector
 
         private void btnSaveNClose_Click(object sender, EventArgs e)
         {
+            this.Save();
+            this.Close();
+            this.Dispose();
+        }
+
+        private void Save()
+        {
             var isNewMode = (tabControl1.SelectedTab == tabNewItem);
             var isUpdateMode = (tabControl1.SelectedTab == tabUpdateItem);
 
             btnSaveNClose.Enabled = false;
+            btnSave.Enabled = false;
             List<string> saveFilePaths = new List<string>();
             var tempFolder = System.IO.Path.GetTempPath();
             if (!tempFolder.EndsWith("\\"))
@@ -270,8 +279,8 @@ namespace OutlookTfsConnector
 
                 if (chkLstBoxAttachements.GetItemChecked(0))
                 {
-                    var subject = _outlookCurrentMailItem.Subject.GetFileName() 
-                        +".msg";
+                    var subject = _outlookCurrentMailItem.Subject.GetFileName()
+                        + ".msg";
                     string allMessage = tempFolder + subject;
                     saveFilePaths.Add(allMessage);
                     _outlookCurrentMailItem.SaveAs(allMessage,
@@ -293,7 +302,7 @@ namespace OutlookTfsConnector
                     }
                 }
 
-                if ( (saveFilePaths.Count > 0) || (isUpdateMode))
+                if ((saveFilePaths.Count > 0) || (isUpdateMode))
                 {
                     List<string> uploadedAttachementUrl = new List<string>();
                     if (saveFilePaths.Count > 0)
@@ -392,9 +401,6 @@ namespace OutlookTfsConnector
                 {
                     MessageBox.Show("Item Created Sucessfully, with ID: " + result.Id + "\r\n\r\n" + result.Url, "Item Created");
                 }
-                this.Close();
-                this.Dispose();
-
             }
             catch (System.Exception ex)
             {
@@ -410,7 +416,7 @@ namespace OutlookTfsConnector
                             File.Delete(fp);
                     }
                 }
-                catch(System.Exception ex)
+                catch (System.Exception ex)
                 {
                     //TODO: silently log?
                 }
@@ -474,9 +480,15 @@ namespace OutlookTfsConnector
 
             if (itemIdvalidated && cbWorkItemType.SelectedIndex >= 0 && cbPriority.SelectedIndex >= 0 && cbSeverity.SelectedIndex >= 0
                 && txtBody.TextLength > 0 && txtTitle.TextLength > 0)
+            {
                 btnSaveNClose.Enabled = true;
+                btnSave.Enabled = true;
+            }
             else
+            {
                 btnSaveNClose.Enabled = false;
+                btnSave.Enabled = false;
+            }
         }
 
         private void btnSelectAll_Click(object sender, EventArgs e)
@@ -601,6 +613,11 @@ namespace OutlookTfsConnector
         private void txtExistingItemId_Leave(object sender, EventArgs e)
         {
             FindWorkItem(txtExistingItemId.Text, out existingItem, out existingItemValidated);
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            this.Save();
         }
     }
 }

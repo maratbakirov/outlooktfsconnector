@@ -52,9 +52,10 @@
             this.txtParentItem = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.tabUpdateItem = new System.Windows.Forms.TabPage();
-            this.txtLogMessage = new System.Windows.Forms.TextBox();
             this.txtExistingItemId = new System.Windows.Forms.TextBox();
             this.lblExistingItemId = new System.Windows.Forms.Label();
+            this.txtLogMessage = new System.Windows.Forms.TextBox();
+            this.btnSave = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabNewItem.SuspendLayout();
             this.tabUpdateItem.SuspendLayout();
@@ -145,7 +146,7 @@
             // 
             this.btnSaveNClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSaveNClose.Enabled = false;
-            this.btnSaveNClose.Location = new System.Drawing.Point(613, 686);
+            this.btnSaveNClose.Location = new System.Drawing.Point(456, 686);
             this.btnSaveNClose.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveNClose.Name = "btnSaveNClose";
             this.btnSaveNClose.Size = new System.Drawing.Size(121, 28);
@@ -343,16 +344,6 @@
             this.tabUpdateItem.Text = "UpdateItem";
             this.tabUpdateItem.UseVisualStyleBackColor = true;
             // 
-            // txtLogMessage
-            // 
-            this.txtLogMessage.Location = new System.Drawing.Point(16, 117);
-            this.txtLogMessage.Multiline = true;
-            this.txtLogMessage.Name = "txtLogMessage";
-            this.txtLogMessage.ReadOnly = true;
-            this.txtLogMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtLogMessage.Size = new System.Drawing.Size(847, 41);
-            this.txtLogMessage.TabIndex = 18;
-            // 
             // txtExistingItemId
             // 
             this.txtExistingItemId.Location = new System.Drawing.Point(17, 35);
@@ -370,11 +361,35 @@
             this.lblExistingItemId.TabIndex = 18;
             this.lblExistingItemId.Text = "Existing Item Id";
             // 
+            // txtLogMessage
+            // 
+            this.txtLogMessage.Location = new System.Drawing.Point(16, 117);
+            this.txtLogMessage.Multiline = true;
+            this.txtLogMessage.Name = "txtLogMessage";
+            this.txtLogMessage.ReadOnly = true;
+            this.txtLogMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtLogMessage.Size = new System.Drawing.Size(847, 41);
+            this.txtLogMessage.TabIndex = 18;
+            // 
+            // btnSave
+            // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Enabled = false;
+            this.btnSave.Location = new System.Drawing.Point(597, 686);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(121, 28);
+            this.btnSave.TabIndex = 20;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
             // TfsWorkItemUserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(889, 726);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtLogMessage);
             this.Controls.Add(this.cbProject);
             this.Controls.Add(this.label7);
@@ -432,5 +447,6 @@
         private System.Windows.Forms.TextBox txtLogMessage;
         private System.Windows.Forms.TextBox txtExistingItemId;
         private System.Windows.Forms.Label lblExistingItemId;
+        private System.Windows.Forms.Button btnSave;
     }
 }
