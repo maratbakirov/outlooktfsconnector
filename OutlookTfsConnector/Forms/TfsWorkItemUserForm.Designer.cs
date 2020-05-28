@@ -56,9 +56,13 @@
             this.lblExistingItemId = new System.Windows.Forms.Label();
             this.txtLogMessage = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.tabNewItem.SuspendLayout();
             this.tabUpdateItem.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnClose
@@ -81,7 +85,7 @@
             "Bug",
             "Feature",
             "Issue"});
-            this.cbWorkItemType.Location = new System.Drawing.Point(263, 26);
+            this.cbWorkItemType.Location = new System.Drawing.Point(182, 26);
             this.cbWorkItemType.Margin = new System.Windows.Forms.Padding(4);
             this.cbWorkItemType.Name = "cbWorkItemType";
             this.cbWorkItemType.Size = new System.Drawing.Size(241, 24);
@@ -92,7 +96,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(259, 3);
+            this.label1.Location = new System.Drawing.Point(178, 3);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(116, 17);
@@ -102,7 +106,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 169);
+            this.label2.Location = new System.Drawing.Point(17, 184);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 17);
@@ -111,7 +115,7 @@
             // 
             // txtTitle
             // 
-            this.txtTitle.Location = new System.Drawing.Point(16, 188);
+            this.txtTitle.Location = new System.Drawing.Point(16, 205);
             this.txtTitle.Margin = new System.Windows.Forms.Padding(4);
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.Size = new System.Drawing.Size(844, 22);
@@ -121,7 +125,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 219);
+            this.label3.Location = new System.Drawing.Point(17, 234);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(49, 17);
@@ -133,12 +137,12 @@
             this.txtBody.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBody.Location = new System.Drawing.Point(16, 253);
+            this.txtBody.Location = new System.Drawing.Point(16, 261);
             this.txtBody.Margin = new System.Windows.Forms.Padding(4);
             this.txtBody.Multiline = true;
             this.txtBody.Name = "txtBody";
             this.txtBody.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtBody.Size = new System.Drawing.Size(844, 179);
+            this.txtBody.Size = new System.Drawing.Size(583, 171);
             this.txtBody.TabIndex = 6;
             this.txtBody.TextChanged += new System.EventHandler(this.txtBody_TextChanged);
             // 
@@ -159,7 +163,7 @@
             // 
             this.lblAttachements.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblAttachements.AutoSize = true;
-            this.lblAttachements.Location = new System.Drawing.Point(12, 440);
+            this.lblAttachements.Location = new System.Drawing.Point(13, 444);
             this.lblAttachements.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAttachements.Name = "lblAttachements";
             this.lblAttachements.Size = new System.Drawing.Size(94, 17);
@@ -176,24 +180,26 @@
             this.chkLstBoxAttachements.ScrollAlwaysVisible = true;
             this.chkLstBoxAttachements.Size = new System.Drawing.Size(379, 191);
             this.chkLstBoxAttachements.TabIndex = 9;
+            this.chkLstBoxAttachements.SelectedIndexChanged += new System.EventHandler(this.chkLstBoxAttachements_SelectedIndexChanged);
             // 
             // txtSystemInformation
             // 
-            this.txtSystemInformation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtSystemInformation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSystemInformation.Location = new System.Drawing.Point(424, 471);
+            this.txtSystemInformation.Location = new System.Drawing.Point(633, 261);
             this.txtSystemInformation.Margin = new System.Windows.Forms.Padding(4);
             this.txtSystemInformation.Multiline = true;
             this.txtSystemInformation.Name = "txtSystemInformation";
             this.txtSystemInformation.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtSystemInformation.Size = new System.Drawing.Size(436, 207);
+            this.txtSystemInformation.Size = new System.Drawing.Size(243, 171);
             this.txtSystemInformation.TabIndex = 10;
             // 
             // label4
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(420, 440);
+            this.label4.Location = new System.Drawing.Point(630, 234);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(128, 17);
@@ -203,7 +209,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(542, 3);
+            this.label5.Location = new System.Drawing.Point(476, 3);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(61, 17);
@@ -218,7 +224,7 @@
             "2",
             "3",
             "4"});
-            this.cbPriority.Location = new System.Drawing.Point(546, 26);
+            this.cbPriority.Location = new System.Drawing.Point(480, 26);
             this.cbPriority.Margin = new System.Windows.Forms.Padding(4);
             this.cbPriority.Name = "cbPriority";
             this.cbPriority.Size = new System.Drawing.Size(96, 24);
@@ -229,7 +235,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(667, 3);
+            this.label6.Location = new System.Drawing.Point(601, 3);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(68, 17);
@@ -244,7 +250,7 @@
             "2 - High",
             "3 - Medium",
             "4 - Low"});
-            this.cbSeverity.Location = new System.Drawing.Point(671, 26);
+            this.cbSeverity.Location = new System.Drawing.Point(605, 26);
             this.cbSeverity.Margin = new System.Windows.Forms.Padding(4);
             this.cbSeverity.Name = "cbSeverity";
             this.cbSeverity.Size = new System.Drawing.Size(172, 24);
@@ -288,17 +294,20 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabNewItem);
             this.tabControl1.Controls.Add(this.tabUpdateItem);
             this.tabControl1.Location = new System.Drawing.Point(16, 13);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(845, 98);
+            this.tabControl1.Size = new System.Drawing.Size(845, 115);
             this.tabControl1.TabIndex = 19;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabNewItem
             // 
+            this.tabNewItem.AutoScroll = true;
             this.tabNewItem.Controls.Add(this.txtParentItem);
             this.tabNewItem.Controls.Add(this.label8);
             this.tabNewItem.Controls.Add(this.label1);
@@ -310,7 +319,7 @@
             this.tabNewItem.Location = new System.Drawing.Point(4, 25);
             this.tabNewItem.Name = "tabNewItem";
             this.tabNewItem.Padding = new System.Windows.Forms.Padding(3);
-            this.tabNewItem.Size = new System.Drawing.Size(837, 69);
+            this.tabNewItem.Size = new System.Drawing.Size(837, 86);
             this.tabNewItem.TabIndex = 0;
             this.tabNewItem.Text = "NewItem";
             this.tabNewItem.UseVisualStyleBackColor = true;
@@ -334,12 +343,13 @@
             // 
             // tabUpdateItem
             // 
+            this.tabUpdateItem.AutoScroll = true;
             this.tabUpdateItem.Controls.Add(this.txtExistingItemId);
             this.tabUpdateItem.Controls.Add(this.lblExistingItemId);
             this.tabUpdateItem.Location = new System.Drawing.Point(4, 25);
             this.tabUpdateItem.Name = "tabUpdateItem";
             this.tabUpdateItem.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUpdateItem.Size = new System.Drawing.Size(837, 69);
+            this.tabUpdateItem.Size = new System.Drawing.Size(837, 86);
             this.tabUpdateItem.TabIndex = 1;
             this.tabUpdateItem.Text = "UpdateItem";
             this.tabUpdateItem.UseVisualStyleBackColor = true;
@@ -363,7 +373,9 @@
             // 
             // txtLogMessage
             // 
-            this.txtLogMessage.Location = new System.Drawing.Point(16, 117);
+            this.txtLogMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLogMessage.Location = new System.Drawing.Point(16, 134);
             this.txtLogMessage.Multiline = true;
             this.txtLogMessage.Name = "txtLogMessage";
             this.txtLogMessage.ReadOnly = true;
@@ -384,11 +396,30 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // panel1
+            // 
+            this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Location = new System.Drawing.Point(456, 471);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(407, 191);
+            this.panel1.TabIndex = 21;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(18, 13);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(374, 175);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
             // TfsWorkItemUserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(889, 726);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtLogMessage);
             this.Controls.Add(this.cbProject);
@@ -413,6 +444,9 @@
             this.tabNewItem.PerformLayout();
             this.tabUpdateItem.ResumeLayout(false);
             this.tabUpdateItem.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -448,5 +482,7 @@
         private System.Windows.Forms.TextBox txtExistingItemId;
         private System.Windows.Forms.Label lblExistingItemId;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

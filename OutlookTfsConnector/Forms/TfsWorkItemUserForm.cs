@@ -115,12 +115,7 @@ namespace OutlookTfsConnector
             btnSaveNClose.Enabled = false;
             btnSave.Enabled = false;
             List<string> saveFilePaths = new List<string>();
-            var tempFolder = System.IO.Path.GetTempPath();
-            if (!tempFolder.EndsWith("\\"))
-            {
-                tempFolder += "\\";
-            }
-            tempFolder += "OutlookTfsAddin\\";
+            string tempFolder = GetTempFolder();
 
             try
             {
@@ -424,6 +419,17 @@ namespace OutlookTfsConnector
             }
         }
 
+        private static string GetTempFolder()
+        {
+            var tempFolder = System.IO.Path.GetTempPath();
+            if (!tempFolder.EndsWith("\\"))
+            {
+                tempFolder += "\\";
+            }
+            tempFolder += "OutlookTfsAddin\\";
+            return tempFolder;
+        }
+
         private static WorkItemTrackingHttpClient GetVssClient(TfsConfigurationItem tfsConnection)
         {
             var connection = new VssConnection(new Uri(tfsConnection.TfsUrl), new VssBasicCredential(string.Empty, tfsConnection.TfsUserToken));
@@ -619,5 +625,31 @@ namespace OutlookTfsConnector
         {
             this.Save();
         }
+
+
+        private void chkLstBoxAttachements_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var q = 1;
+
+            pictureBox1.Image = null;
+
+            // this one is zero based
+            var i = chkLstBoxAttachements.SelectedIndex +1;
+
+            var filename = _outlookCurrentMailItem.Attachments[i].FileName;
+            filename = filename.GetFileName();
+            var extension = Path.GetExtension(filename).ToLower();
+            if (!imageExtensions.Contains(extension))
+            {
+                return;
+            }
+
+             // todo: point to the extension path
+/*            string fPath = tempFolder + filename;
+            saveFilePaths.Add(fPath);
+            _outlookCurrentMailItem.Attachments[i].SaveAsFile(fPath);*/
+        }
+
+
     }
 }
