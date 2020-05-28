@@ -324,11 +324,11 @@ namespace OutlookTfsConnector
                                          attributes = new
                                          {
                                              name = Path.GetFileName(fp),
-                                             comment = "Adding new attachment for item, Outlook TFS Add-in"
+                                             comment = txtAttachementComment.Text
                                          }
                                      }
                                  }
-                             );
+                             );;
                             uploadedAttachementUrl.Add(attachment.Url);
                         }
 
@@ -649,7 +649,5 @@ namespace OutlookTfsConnector
             saveFilePaths.Add(fPath);
             _outlookCurrentMailItem.Attachments[i].SaveAsFile(fPath);*/
         }
-
-
     }
 }

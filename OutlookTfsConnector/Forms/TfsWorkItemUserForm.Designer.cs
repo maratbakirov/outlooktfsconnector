@@ -58,6 +58,8 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.txtAttachementComment = new System.Windows.Forms.TextBox();
+            this.lblAttachementComment = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabNewItem.SuspendLayout();
             this.tabUpdateItem.SuspendLayout();
@@ -68,7 +70,7 @@
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.Location = new System.Drawing.Point(742, 686);
+            this.btnClose.Location = new System.Drawing.Point(742, 698);
             this.btnClose.Margin = new System.Windows.Forms.Padding(4);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(119, 28);
@@ -115,6 +117,8 @@
             // 
             // txtTitle
             // 
+            this.txtTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTitle.Location = new System.Drawing.Point(16, 205);
             this.txtTitle.Margin = new System.Windows.Forms.Padding(4);
             this.txtTitle.Name = "txtTitle";
@@ -142,7 +146,7 @@
             this.txtBody.Multiline = true;
             this.txtBody.Name = "txtBody";
             this.txtBody.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtBody.Size = new System.Drawing.Size(583, 171);
+            this.txtBody.Size = new System.Drawing.Size(583, 183);
             this.txtBody.TabIndex = 6;
             this.txtBody.TextChanged += new System.EventHandler(this.txtBody_TextChanged);
             // 
@@ -150,7 +154,7 @@
             // 
             this.btnSaveNClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSaveNClose.Enabled = false;
-            this.btnSaveNClose.Location = new System.Drawing.Point(456, 686);
+            this.btnSaveNClose.Location = new System.Drawing.Point(456, 698);
             this.btnSaveNClose.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveNClose.Name = "btnSaveNClose";
             this.btnSaveNClose.Size = new System.Drawing.Size(121, 28);
@@ -163,7 +167,7 @@
             // 
             this.lblAttachements.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblAttachements.AutoSize = true;
-            this.lblAttachements.Location = new System.Drawing.Point(13, 444);
+            this.lblAttachements.Location = new System.Drawing.Point(13, 456);
             this.lblAttachements.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAttachements.Name = "lblAttachements";
             this.lblAttachements.Size = new System.Drawing.Size(94, 17);
@@ -174,11 +178,11 @@
             // 
             this.chkLstBoxAttachements.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkLstBoxAttachements.FormattingEnabled = true;
-            this.chkLstBoxAttachements.Location = new System.Drawing.Point(16, 471);
+            this.chkLstBoxAttachements.Location = new System.Drawing.Point(16, 483);
             this.chkLstBoxAttachements.Margin = new System.Windows.Forms.Padding(4);
             this.chkLstBoxAttachements.Name = "chkLstBoxAttachements";
             this.chkLstBoxAttachements.ScrollAlwaysVisible = true;
-            this.chkLstBoxAttachements.Size = new System.Drawing.Size(379, 191);
+            this.chkLstBoxAttachements.Size = new System.Drawing.Size(379, 157);
             this.chkLstBoxAttachements.TabIndex = 9;
             this.chkLstBoxAttachements.SelectedIndexChanged += new System.EventHandler(this.chkLstBoxAttachements_SelectedIndexChanged);
             // 
@@ -191,7 +195,7 @@
             this.txtSystemInformation.Multiline = true;
             this.txtSystemInformation.Name = "txtSystemInformation";
             this.txtSystemInformation.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtSystemInformation.Size = new System.Drawing.Size(243, 171);
+            this.txtSystemInformation.Size = new System.Drawing.Size(243, 183);
             this.txtSystemInformation.TabIndex = 10;
             // 
             // label4
@@ -261,7 +265,7 @@
             // btnSelectAll
             // 
             this.btnSelectAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSelectAll.Location = new System.Drawing.Point(16, 686);
+            this.btnSelectAll.Location = new System.Drawing.Point(16, 698);
             this.btnSelectAll.Margin = new System.Windows.Forms.Padding(4);
             this.btnSelectAll.Name = "btnSelectAll";
             this.btnSelectAll.Size = new System.Drawing.Size(243, 28);
@@ -387,7 +391,7 @@
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.Enabled = false;
-            this.btnSave.Location = new System.Drawing.Point(597, 686);
+            this.btnSave.Location = new System.Drawing.Point(597, 698);
             this.btnSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(121, 28);
@@ -398,11 +402,14 @@
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.AutoScroll = true;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Location = new System.Drawing.Point(456, 471);
+            this.panel1.Location = new System.Drawing.Point(433, 483);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(407, 191);
+            this.panel1.Size = new System.Drawing.Size(430, 191);
             this.panel1.TabIndex = 21;
             // 
             // pictureBox1
@@ -414,11 +421,29 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
+            // txtAttachementComment
+            // 
+            this.txtAttachementComment.Location = new System.Drawing.Point(12, 669);
+            this.txtAttachementComment.Name = "txtAttachementComment";
+            this.txtAttachementComment.Size = new System.Drawing.Size(382, 22);
+            this.txtAttachementComment.TabIndex = 22;
+            // 
+            // lblAttachementComment
+            // 
+            this.lblAttachementComment.AutoSize = true;
+            this.lblAttachementComment.Location = new System.Drawing.Point(12, 648);
+            this.lblAttachementComment.Name = "lblAttachementComment";
+            this.lblAttachementComment.Size = new System.Drawing.Size(149, 17);
+            this.lblAttachementComment.TabIndex = 23;
+            this.lblAttachementComment.Text = "Attachments Comment";
+            // 
             // TfsWorkItemUserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(889, 726);
+            this.ClientSize = new System.Drawing.Size(889, 738);
+            this.Controls.Add(this.lblAttachementComment);
+            this.Controls.Add(this.txtAttachementComment);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtLogMessage);
@@ -484,5 +509,7 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.TextBox txtAttachementComment;
+        private System.Windows.Forms.Label lblAttachementComment;
     }
 }
