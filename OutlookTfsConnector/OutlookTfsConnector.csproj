@@ -431,7 +431,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>certificate\OutlookTfsConnector.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>selfsign.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
