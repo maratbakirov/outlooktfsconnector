@@ -377,7 +377,6 @@
     <None Include="certificate\OutlookTfsConnector.cer" />
     <None Include="certificate\OutlookTfsConnector.pfx" />
     <None Include="certificate\OutlookTfsConnector.pvk" />
-    <None Include="OutlookTfsConnector_1_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -425,7 +424,7 @@
     <ManifestKeyFile>certificate\OutlookTfsConnector.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>5E9FC11C77A134E5BE647FDA1D641F172320B3A1</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>CE69FC4E4BB396C01A07463F0B8FFFF7157ED438</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
