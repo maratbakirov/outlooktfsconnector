@@ -372,7 +372,8 @@
       <DependentUpon>TfsWorkItemUserForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="certificate\certificate.cmd" />
+    <None Include="certificate\VSinstallcertificate.cmd" />
+    <None Include="certificate\generatecertificate.cmd" />
     <None Include="certificate\OutlookTfsConnector.cer" />
     <None Include="certificate\OutlookTfsConnector.pfx" />
     <None Include="certificate\OutlookTfsConnector.pvk" />
@@ -424,7 +425,7 @@
     <ManifestKeyFile>certificate\OutlookTfsConnector.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>0B46D8B0BD4A2A5919B1B7E8852DE8C11D2DB51E</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>C49413F7FCE0F3CE8DB534916CAB366EA5EBFC15</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
