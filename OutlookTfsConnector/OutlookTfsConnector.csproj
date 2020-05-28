@@ -425,7 +425,7 @@
     <ManifestKeyFile>certificate\OutlookTfsConnector.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>C49413F7FCE0F3CE8DB534916CAB366EA5EBFC15</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>5E9FC11C77A134E5BE647FDA1D641F172320B3A1</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
