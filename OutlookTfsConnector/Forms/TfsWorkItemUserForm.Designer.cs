@@ -464,6 +464,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "TfsWorkItemUserForm";
             this.Text = "TFS Work Item Information";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.TfsWorkItemUserForm_FormClosed);
             this.tabControl1.ResumeLayout(false);
             this.tabNewItem.ResumeLayout(false);
             this.tabNewItem.PerformLayout();

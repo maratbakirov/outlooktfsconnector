@@ -33,6 +33,8 @@ namespace OutlookTfsConnector
 
         static HashSet<string> imageExtensions = new HashSet<string> { ".jpg",".png",".bmp"};
 
+        List<string> tempFileNames = new List<string>();
+
         public TfsWorkItemUserForm(Microsoft.Office.Interop.Outlook.MailItem outlookCurrentMailItem , ThisAddIn thisAddIn, ExchangeUser exchangeUser)
         {
             _outlookCurrentMailItem = outlookCurrentMailItem;
@@ -629,13 +631,18 @@ namespace OutlookTfsConnector
 
         private void chkLstBoxAttachements_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var q = 1;
+            string tempFolder = GetTempFolder();
 
             pictureBox1.Image = null;
 
-            // this one is zero based
-            var i = chkLstBoxAttachements.SelectedIndex +1;
+            // this one is zero based but first one is not a real attachement.
+            var i = chkLstBoxAttachements.SelectedIndex;
 
+            if (i < 1)
+                return;
+
+            
+            // attachments array in outlook is 1 based because of legacy and VB compatibility
             var filename = _outlookCurrentMailItem.Attachments[i].FileName;
             filename = filename.GetFileName();
             var extension = Path.GetExtension(filename).ToLower();
@@ -644,10 +651,33 @@ namespace OutlookTfsConnector
                 return;
             }
 
-             // todo: point to the extension path
-/*            string fPath = tempFolder + filename;
-            saveFilePaths.Add(fPath);
-            _outlookCurrentMailItem.Attachments[i].SaveAsFile(fPath);*/
+            var tempFileName = System.IO.Path.GetTempFileName();
+            this.tempFileNames.Add(tempFileName);
+
+            _outlookCurrentMailItem.Attachments[i].SaveAsFile(tempFileName);
+            pictureBox1.ImageLocation = tempFileName;
+        }
+
+        private void TfsWorkItemUserForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            try
+            {
+                foreach (var tempFileName in this.tempFileNames)
+                {
+                    try
+                    {
+                        System.IO.File.Delete(tempFileName);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+            }
+            catch
+            {
+
+            }
         }
     }
 }
