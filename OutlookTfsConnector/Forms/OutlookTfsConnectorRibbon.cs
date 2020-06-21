@@ -35,18 +35,34 @@ namespace OutlookTfsConnector
             ExchangeUser currentOutlookUser = outlookApp.Session.CurrentUser.
             AddressEntry.GetExchangeUser();
 
+            var context = e.Control.Context;
+            var mailItem = null as MailItem;
+
             if (outlookApp.ActiveExplorer().Selection.Count > 0)
             {
                 Object selObject = outlookApp.ActiveExplorer().Selection[1];
                 if (selObject is Microsoft.Office.Interop.Outlook.MailItem)
                 {
-                    Microsoft.Office.Interop.Outlook.MailItem mailItem =
+                    mailItem =
                         (selObject as Microsoft.Office.Interop.Outlook.MailItem);
-
-                    TfsWorkItemUserForm userForm = new TfsWorkItemUserForm(mailItem , outlookAddin , currentOutlookUser);
-                    userForm.ShowDialog();
-                    
                 }
+            }
+            else
+            {
+                try
+                {
+                    mailItem = context.CurrentItem as MailItem;
+                }
+                catch
+                {
+                    var q = 1;
+                }
+            }
+
+            if (mailItem != null)
+            {
+                TfsWorkItemUserForm userForm = new TfsWorkItemUserForm(mailItem, outlookAddin, currentOutlookUser);
+                userForm.ShowDialog();
             }
         }
         private void btnAddEmailToTfsNewEmail_Click(object sender, RibbonControlEventArgs e)
