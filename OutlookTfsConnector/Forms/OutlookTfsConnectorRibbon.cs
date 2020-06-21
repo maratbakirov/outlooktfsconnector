@@ -38,24 +38,25 @@ namespace OutlookTfsConnector
             var context = e.Control.Context;
             var mailItem = null as MailItem;
 
-            if (outlookApp.ActiveExplorer().Selection.Count > 0)
+            try
             {
-                Object selObject = outlookApp.ActiveExplorer().Selection[1];
-                if (selObject is Microsoft.Office.Interop.Outlook.MailItem)
-                {
-                    mailItem =
-                        (selObject as Microsoft.Office.Interop.Outlook.MailItem);
-                }
+                mailItem = context.CurrentItem as MailItem;
             }
-            else
+            catch
             {
-                try
+            }
+
+
+            if (mailItem == null)
+            {
+                if (outlookApp.ActiveExplorer().Selection.Count > 0)
                 {
-                    mailItem = context.CurrentItem as MailItem;
-                }
-                catch
-                {
-                    var q = 1;
+                    Object selObject = outlookApp.ActiveExplorer().Selection[1];
+                    if (selObject is Microsoft.Office.Interop.Outlook.MailItem)
+                    {
+                        mailItem =
+                            (selObject as Microsoft.Office.Interop.Outlook.MailItem);
+                    }
                 }
             }
 
@@ -68,10 +69,20 @@ namespace OutlookTfsConnector
         private void btnAddEmailToTfsNewEmail_Click(object sender, RibbonControlEventArgs e)
         {
             var context = e.Control.Context;
-            var mailItem = context.CurrentItem as MailItem;
+            var mailItem = null as MailItem;
+
 
             ExchangeUser currentOutlookUser = outlookApp.Session.CurrentUser.
             AddressEntry.GetExchangeUser();
+
+            try
+            {
+                mailItem = context.CurrentItem as MailItem;
+            }
+            catch
+            {
+
+            }
 
             if (mailItem != null)
             {
