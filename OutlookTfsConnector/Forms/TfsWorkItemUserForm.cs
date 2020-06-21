@@ -31,9 +31,7 @@ namespace OutlookTfsConnector
         bool parentItemValidated = false;
         bool existingItemValidated = false;
 
-        static HashSet<string> imageExtensions = new HashSet<string> { ".jpg",".png",".bmp"};
-
-        List<string> tempFileNames = new List<string>();
+        static HashSet<string> imageExtensions = new HashSet<string> { ".jpg",".png",".bmp",".gif",".ico",".wmf"};
 
         public TfsWorkItemUserForm(Microsoft.Office.Interop.Outlook.MailItem outlookCurrentMailItem , ThisAddIn thisAddIn, ExchangeUser exchangeUser)
         {
@@ -631,53 +629,49 @@ namespace OutlookTfsConnector
 
         private void chkLstBoxAttachements_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string tempFolder = GetTempFolder();
+            var tempFileName = null as string;
 
-            pictureBox1.Image = null;
-
-            // this one is zero based but first one is not a real attachement.
-            var i = chkLstBoxAttachements.SelectedIndex;
-
-            if (i < 1)
-                return;
-
-            
-            // attachments array in outlook is 1 based because of legacy and VB compatibility
-            var filename = _outlookCurrentMailItem.Attachments[i].FileName;
-            filename = filename.GetFileName();
-            var extension = Path.GetExtension(filename).ToLower();
-            if (!imageExtensions.Contains(extension))
+            try
             {
-                return;
+                if (pictureBox1.Image != null)
+                {
+                    pictureBox1.Image.Dispose();
+                    pictureBox1.Image = null;
+                }
+
+                // this one is zero based but first one is not a real attachement.
+                var i = chkLstBoxAttachements.SelectedIndex;
+
+                if (i < 1)
+                    return;
+
+
+                // attachments array in outlook is 1 based because of legacy and VB compatibility
+                var filename = _outlookCurrentMailItem.Attachments[i].FileName;
+                filename = filename.GetFileName();
+                var extension = Path.GetExtension(filename).ToLower();
+                if (!imageExtensions.Contains(extension))
+                {
+                    return;
+                }
+
+                tempFileName = System.IO.Path.GetTempFileName();
+
+                _outlookCurrentMailItem.Attachments[i].SaveAsFile(tempFileName);
+                pictureBox1.Image = Image.FromFile(tempFileName);
             }
-
-            var tempFileName = System.IO.Path.GetTempFileName();
-            this.tempFileNames.Add(tempFileName);
-
-            _outlookCurrentMailItem.Attachments[i].SaveAsFile(tempFileName);
-            pictureBox1.ImageLocation = tempFileName;
+            finally
+            {
+                try
+                {
+                    System.IO.File.Delete(tempFileName);
+                }
+                catch { }
+            }
         }
 
         private void TfsWorkItemUserForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            try
-            {
-                foreach (var tempFileName in this.tempFileNames)
-                {
-                    try
-                    {
-                        System.IO.File.Delete(tempFileName);
-                    }
-                    catch
-                    {
-
-                    }
-                }
-            }
-            catch
-            {
-
-            }
         }
     }
 }
