@@ -372,7 +372,7 @@ namespace OutlookTfsConnector
 
                         WorkItem finalResult = witClient.UpdateWorkItemAsync(updatedItemBody, result.Id.Value).Result;
 
-                        MessageBox.Show("Item Created Sucessfully, with ID: " + finalResult.Id + "\r\n\r\n" + finalResult.Url, "Item Created With Attachement");
+                        MessageBox.Show("Item Created Successfully, with ID: " + finalResult.Id + "\r\n\r\n" + finalResult.Url, "Item Created With Attachment");
                     }
                     else if (isUpdateMode)
                     {
@@ -388,13 +388,13 @@ namespace OutlookTfsConnector
 
                         WorkItem finalResult = witClient.UpdateWorkItemAsync(updatedItemBody, result.Id.Value).Result;
 
-                        MessageBox.Show("Item updated Sucessfully, with ID: " + finalResult.Id + "\r\n\r\n" + finalResult.Url, "Item Created With Attachement");
+                        MessageBox.Show("Item updated Successfully, with ID: " + finalResult.Id + "\r\n\r\n" + finalResult.Url, "Item Created With Attachment");
 
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Item Created Sucessfully, with ID: " + result.Id + "\r\n\r\n" + result.Url, "Item Created");
+                    MessageBox.Show("Item Created Successfully, with ID: " + result.Id + "\r\n\r\n" + result.Url, "Item Created");
                 }
             }
             catch (System.Exception ex)
@@ -639,7 +639,7 @@ namespace OutlookTfsConnector
                     pictureBox1.Image = null;
                 }
 
-                // this one is zero based but first one is not a real attachement.
+                // this one is zero based but first one is not a real attachment.
                 var i = chkLstBoxAttachements.SelectedIndex;
 
                 if (i < 1)
