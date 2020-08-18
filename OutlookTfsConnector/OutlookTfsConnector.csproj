@@ -343,6 +343,7 @@
   <ItemGroup>
     <Compile Include="Code\SecurityExtensions.cs" />
     <Compile Include="Code\Settings.cs" />
+    <Compile Include="Code\Utils.cs" />
     <Compile Include="Forms\OutlookTfsConnectorRibbon.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -412,6 +413,9 @@
       <DependentUpon>ThisAddIn.Designer.xml</DependentUpon>
     </Compile>
     <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_donateCC_LG[1].gif" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -60,17 +60,19 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.txtAttachementComment = new System.Windows.Forms.TextBox();
             this.lblAttachementComment = new System.Windows.Forms.Label();
+            this.pbDonate = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.tabNewItem.SuspendLayout();
             this.tabUpdateItem.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbDonate)).BeginInit();
             this.SuspendLayout();
             // 
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.Location = new System.Drawing.Point(742, 698);
+            this.btnClose.Location = new System.Drawing.Point(742, 700);
             this.btnClose.Margin = new System.Windows.Forms.Padding(4);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(119, 28);
@@ -146,7 +148,7 @@
             this.txtBody.Multiline = true;
             this.txtBody.Name = "txtBody";
             this.txtBody.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtBody.Size = new System.Drawing.Size(583, 183);
+            this.txtBody.Size = new System.Drawing.Size(583, 185);
             this.txtBody.TabIndex = 6;
             this.txtBody.TextChanged += new System.EventHandler(this.txtBody_TextChanged);
             // 
@@ -154,7 +156,7 @@
             // 
             this.btnSaveNClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSaveNClose.Enabled = false;
-            this.btnSaveNClose.Location = new System.Drawing.Point(456, 698);
+            this.btnSaveNClose.Location = new System.Drawing.Point(463, 700);
             this.btnSaveNClose.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveNClose.Name = "btnSaveNClose";
             this.btnSaveNClose.Size = new System.Drawing.Size(121, 28);
@@ -167,7 +169,7 @@
             // 
             this.lblAttachements.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblAttachements.AutoSize = true;
-            this.lblAttachements.Location = new System.Drawing.Point(13, 456);
+            this.lblAttachements.Location = new System.Drawing.Point(13, 458);
             this.lblAttachements.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAttachements.Name = "lblAttachements";
             this.lblAttachements.Size = new System.Drawing.Size(94, 17);
@@ -178,7 +180,7 @@
             // 
             this.chkLstBoxAttachements.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkLstBoxAttachements.FormattingEnabled = true;
-            this.chkLstBoxAttachements.Location = new System.Drawing.Point(16, 483);
+            this.chkLstBoxAttachements.Location = new System.Drawing.Point(16, 485);
             this.chkLstBoxAttachements.Margin = new System.Windows.Forms.Padding(4);
             this.chkLstBoxAttachements.Name = "chkLstBoxAttachements";
             this.chkLstBoxAttachements.ScrollAlwaysVisible = true;
@@ -195,7 +197,7 @@
             this.txtSystemInformation.Multiline = true;
             this.txtSystemInformation.Name = "txtSystemInformation";
             this.txtSystemInformation.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtSystemInformation.Size = new System.Drawing.Size(243, 183);
+            this.txtSystemInformation.Size = new System.Drawing.Size(243, 185);
             this.txtSystemInformation.TabIndex = 10;
             // 
             // label4
@@ -265,10 +267,10 @@
             // btnSelectAll
             // 
             this.btnSelectAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSelectAll.Location = new System.Drawing.Point(16, 698);
+            this.btnSelectAll.Location = new System.Drawing.Point(16, 700);
             this.btnSelectAll.Margin = new System.Windows.Forms.Padding(4);
             this.btnSelectAll.Name = "btnSelectAll";
-            this.btnSelectAll.Size = new System.Drawing.Size(243, 28);
+            this.btnSelectAll.Size = new System.Drawing.Size(206, 28);
             this.btnSelectAll.TabIndex = 16;
             this.btnSelectAll.Text = "De/Select All Attachements";
             this.btnSelectAll.UseVisualStyleBackColor = true;
@@ -391,7 +393,7 @@
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.Enabled = false;
-            this.btnSave.Location = new System.Drawing.Point(597, 698);
+            this.btnSave.Location = new System.Drawing.Point(603, 700);
             this.btnSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(121, 28);
@@ -407,7 +409,7 @@
             this.panel1.AutoScroll = true;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Location = new System.Drawing.Point(433, 483);
+            this.panel1.Location = new System.Drawing.Point(433, 485);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(430, 191);
             this.panel1.TabIndex = 21;
@@ -437,11 +439,25 @@
             this.lblAttachementComment.TabIndex = 23;
             this.lblAttachementComment.Text = "Attachments Comment";
             // 
+            // pbDonate
+            // 
+            this.pbDonate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pbDonate.Image = global::OutlookTfsConnector.Properties.Resources.btn_donateCC_LG_1_;
+            this.pbDonate.ImageLocation = "";
+            this.pbDonate.InitialImage = global::OutlookTfsConnector.Properties.Resources.btn_donateCC_LG_1_;
+            this.pbDonate.Location = new System.Drawing.Point(258, 700);
+            this.pbDonate.Name = "pbDonate";
+            this.pbDonate.Size = new System.Drawing.Size(95, 27);
+            this.pbDonate.TabIndex = 24;
+            this.pbDonate.TabStop = false;
+            this.pbDonate.Click += new System.EventHandler(this.pbDonate_Click);
+            // 
             // TfsWorkItemUserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(889, 738);
+            this.ClientSize = new System.Drawing.Size(889, 740);
+            this.Controls.Add(this.pbDonate);
             this.Controls.Add(this.lblAttachementComment);
             this.Controls.Add(this.txtAttachementComment);
             this.Controls.Add(this.panel1);
@@ -473,6 +489,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbDonate)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -512,5 +529,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox txtAttachementComment;
         private System.Windows.Forms.Label lblAttachementComment;
+        private System.Windows.Forms.PictureBox pbDonate;
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.Services.Common;
 using Microsoft.VisualStudio.Services.WebApi;
 using Microsoft.VisualStudio.Services.WebApi.Patch;
 using Microsoft.VisualStudio.Services.WebApi.Patch.Json;
+using OutlookTfsConnector.Code;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -672,6 +673,11 @@ namespace OutlookTfsConnector
 
         private void TfsWorkItemUserForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+        }
+
+        private void pbDonate_Click(object sender, EventArgs e)
+        {
+            Utils.OpenDonateUrl();
         }
     }
 }

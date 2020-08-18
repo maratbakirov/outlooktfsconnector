@@ -1,5 +1,6 @@
 ﻿using Microsoft.TeamFoundation.VersionControl.Common.Internal;
 using OutlookTfsConnector;
+using OutlookTfsConnector.Code;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -71,6 +72,11 @@ namespace OutlookTfsConnector
 
             this.Close();
             this.Dispose();
+        }
+
+        private void pbDonate_Click(object sender, EventArgs e)
+        {
+            Utils.OpenDonateUrl();
         }
     }
 }
