@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OutlookTfsConnector;
+using Microsoft.TeamFoundation.Common;
 
 namespace OutlookTfsConnector
 {
@@ -52,6 +53,10 @@ namespace OutlookTfsConnector
 
                 RegistryKey key = Registry.CurrentUser.OpenSubKey(RegisrtyPath);
                 RegexToParseEmailSubjects = (string)key.GetValue("RegexToParseEmailSubjects", "");
+                if (string.IsNullOrWhiteSpace(RegexToParseEmailSubjects))
+                {
+                    RegexToParseEmailSubjects = @"#[\d]+";
+                }
                 var TfsConfigurationsCount = (int)key.GetValue("TfsConfigurationsCount");
                 for (int idx = 0; idx < TfsConfigurationsCount; idx++)
                 {
