@@ -754,7 +754,6 @@ namespace OutlookTfsConnector
                 WorkItemTrackingHttpClient witClient = GetVssClient(tfsConnection);
 
                 var itemTypes = witClient.GetWorkItemTypesAsync(cbProject.Text).Result;
-                var itemTypes = witClient.GetWorkItemTypesAsync(cbProject.Text).Result;
                 var iterations = witClient.GetClassificationNodeAsync(cbProject.Text, TreeStructureGroup.Iterations,depth:2).Result;
                 var areas = witClient.GetClassificationNodeAsync(cbProject.Text, TreeStructureGroup.Areas,depth:2).Result;
 
