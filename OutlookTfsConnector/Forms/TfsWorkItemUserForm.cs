@@ -375,8 +375,10 @@ namespace OutlookTfsConnector
                         );
 
                         WorkItem finalResult = witClient.UpdateWorkItemAsync(updatedItemBody, result.Id.Value).Result;
+                        var url = GetUrlFromWorkItem(finalResult);
+                        System.Windows.Forms.Clipboard.SetText(url, TextDataFormat.Text);
 
-                        MessageBox.Show("Item Created Successfully, with ID: " + finalResult.Id + "\r\n\r\n" + finalResult.Url, "Item Created With Attachment");
+                        MessageBox.Show("Item Created Successfully, with ID: " + finalResult.Id + "\r\n\r\n" + url, "Item Created With Attachment, URL copied to clipboard");
                     }
                     else if (isUpdateMode)
                     {
@@ -391,14 +393,19 @@ namespace OutlookTfsConnector
                         );
 
                         WorkItem finalResult = witClient.UpdateWorkItemAsync(updatedItemBody, result.Id.Value).Result;
+                        var url = GetUrlFromWorkItem(finalResult);
+                        System.Windows.Forms.Clipboard.SetText(url, TextDataFormat.Text);
 
-                        MessageBox.Show("Item updated Successfully, with ID: " + finalResult.Id + "\r\n\r\n" + finalResult.Url, "Item Created With Attachment");
+                        MessageBox.Show("Item updated Successfully, with ID: " + finalResult.Id + "\r\n\r\n" + url, "Item Updated, URL copied to clipboard");
 
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Item Created Successfully, with ID: " + result.Id + "\r\n\r\n" + result.Url, "Item Created");
+                    var url = GetUrlFromWorkItem(result);
+                    System.Windows.Forms.Clipboard.SetText(url, TextDataFormat.Text);
+
+                    MessageBox.Show("Item Created Successfully, with ID: " + result.Id + "\r\n\r\n" + url, "Item Created, URL copied to clipboard");
                 }
             }
             catch (System.Exception ex)
@@ -423,6 +430,16 @@ namespace OutlookTfsConnector
             }
         }
 
+        private string GetUrlFromWorkItem(WorkItem item)
+        {
+            var result = item.Url;
+            if (item.Links != null && item.Links.Links != null && item.Links.Links.ContainsKey("html"))
+            {
+                var rlink  = (Microsoft.VisualStudio.Services.WebApi.ReferenceLink)item.Links.Links["html"];
+                result = rlink.Href;
+            }
+            return result;
+        }
 
         private void SaveOptions()
         {
