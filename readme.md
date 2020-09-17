@@ -1,6 +1,17 @@
+# version history 
+## 0.0.4
 
-Donate to this project
+issues closed
+
+item urls are now working and copied to clipboard
+the product now remembers the last choices for project/item type
+you can now select the user story
+some work on the installer 
 
 
-https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=CKQHEAZRP6BSW&currency_code=AUD&source=url
+
+# installation notes
+
+the installation only works "for current user". 
+i have not fond  the way to remove "for everyone" yet
 

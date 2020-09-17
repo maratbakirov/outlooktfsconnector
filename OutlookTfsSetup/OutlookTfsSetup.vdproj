@@ -9703,7 +9703,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:OutlookTfsSetup"
         "ProductCode" = "8:{98A6698D-4E75-4E20-8E38-7427918F6E4C}"
-        "PackageCode" = "8:{67B65416-71A8-41F6-8817-FDC9C1B1EC7F}"
+        "PackageCode" = "8:{91D5B630-14C7-49F1-9A9A-6546CA9C31DE}"
         "UpgradeCode" = "8:{6BBA0451-CBE1-4BEE-A50A-EE865EF483E3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -9711,15 +9711,15 @@
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.0.0"
-        "Manufacturer" = "8:Default Company Name"
+        "Manufacturer" = "8:Marat Bakirov"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
         "Title" = "8:OutlookTfsSetup"
         "Subject" = "8:"
-        "ARPCONTACT" = "8:Default Company Name"
+        "ARPCONTACT" = "8:Marat Bakirov"
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
-        "ARPURLINFOABOUT" = "8:"
+        "ARPURLINFOABOUT" = "8:https://github.com/maratbakirov/outlooktfsconnector/"
         "ARPPRODUCTICON" = "8:"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
@@ -9779,7 +9779,7 @@
                                                 {
                                                     "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_A933D4A6CAB84073BD343F12119F48B5"
                                                     {
-                                                    "Name" = "8:AddinsCustomData"
+                                                    "Name" = "8:AddIns"
                                                     "Condition" = "8:"
                                                     "AlwaysCreate" = "11:FALSE"
                                                     "DeleteAtUninstall" = "11:FALSE"
@@ -9790,7 +9790,7 @@
                                                             {
                                                             "Name" = "8:OutlookTfsConnector"
                                                             "Condition" = "8:"
-                                                            "AlwaysCreate" = "11:FALSE"
+                                                            "AlwaysCreate" = "11:TRUE"
                                                             "DeleteAtUninstall" = "11:TRUE"
                                                             "Transitive" = "11:FALSE"
                                                                 "Keys"
@@ -9805,14 +9805,6 @@
                                                                     "Transitive" = "11:FALSE"
                                                                     "ValueTypes" = "3:1"
                                                                     "Value" = "8:OutlookTfsConnector"
-                                                                    }
-                                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_501675AD66DF48AF9BC141C1E89A9D63"
-                                                                    {
-                                                                    "Name" = "8:RegexToParseEmailSubjects"
-                                                                    "Condition" = "8:"
-                                                                    "Transitive" = "11:FALSE"
-                                                                    "ValueTypes" = "3:1"
-                                                                    "Value" = "8:#[\\d]+"
                                                                     }
                                                                     "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_B561C376AC8F4FD39605F86D35E6BFF5"
                                                                     {

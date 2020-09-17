@@ -52,7 +52,10 @@ namespace OutlookTfsConnector
             {
 
                 RegistryKey key = Registry.CurrentUser.OpenSubKey(RegistryPath);
-                RegexToParseEmailSubjects = (string)key.GetValue("RegexToParseEmailSubjects", "");
+                if (key != null)
+                {
+                    RegexToParseEmailSubjects = (string)key.GetValue("RegexToParseEmailSubjects", "");
+                }
                 if (string.IsNullOrWhiteSpace(RegexToParseEmailSubjects))
                 {
                     RegexToParseEmailSubjects = @"#[\d]+";
