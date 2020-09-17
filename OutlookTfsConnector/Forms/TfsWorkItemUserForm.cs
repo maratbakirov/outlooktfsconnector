@@ -624,7 +624,6 @@ namespace OutlookTfsConnector
         {
             parentItemValidated = false;
             parentItem = null;
-            var itemText = txtParentItem.Text;
             FindWorkItem(txtParentItem.Text, out parentItem, out parentItemValidated);
         }
 
@@ -740,6 +739,32 @@ namespace OutlookTfsConnector
         private void pbDonate_Click(object sender, EventArgs e)
         {
             Utils.OpenDonateUrl();
+        }
+
+        private void cbProject_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateWorkItemTypes();
+        }
+
+        private void UpdateWorkItemTypes()
+        {
+            try
+            {
+                var tfsConnection = Globals.ThisAddIn.Settings.TfsConfigurations[cbProject.SelectedIndex];
+                WorkItemTrackingHttpClient witClient = GetVssClient(tfsConnection);
+
+                var itemTypes = witClient.GetWorkItemTypesAsync(cbProject.Text).Result;
+                var itemTypes = witClient.GetWorkItemTypesAsync(cbProject.Text).Result;
+                var iterations = witClient.GetClassificationNodeAsync(cbProject.Text, TreeStructureGroup.Iterations,depth:2).Result;
+                var areas = witClient.GetClassificationNodeAsync(cbProject.Text, TreeStructureGroup.Areas,depth:2).Result;
+
+                var q = 1;
+            }
+            catch(System.Exception ex)
+            {
+                //todo: logging
+            }
+
         }
     }
 }
