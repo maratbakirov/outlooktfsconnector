@@ -42,7 +42,7 @@ namespace OutlookTfsConnector
     }
     public class Settings
     {
-        private const string RegisrtyPath = @"Software\Microsoft\Office\Outlook\AddinsCustomData\OutlookTfsConnector";
+        private const string RegistryPath = @"Software\Microsoft\Office\Outlook\AddinsCustomData\OutlookTfsConnector";
         public string RegexToParseEmailSubjects = "";
         public List<TfsConfigurationItem> TfsConfigurations = new List<TfsConfigurationItem>();
 
@@ -51,7 +51,7 @@ namespace OutlookTfsConnector
             try
             {
 
-                RegistryKey key = Registry.CurrentUser.OpenSubKey(RegisrtyPath);
+                RegistryKey key = Registry.CurrentUser.OpenSubKey(RegistryPath);
                 RegexToParseEmailSubjects = (string)key.GetValue("RegexToParseEmailSubjects", "");
                 if (string.IsNullOrWhiteSpace(RegexToParseEmailSubjects))
                 {
@@ -91,7 +91,7 @@ namespace OutlookTfsConnector
         public void Save()
         {
             FixAllUrls();
-            RegistryKey key = Registry.CurrentUser.CreateSubKey(RegisrtyPath);
+            RegistryKey key = Registry.CurrentUser.CreateSubKey(RegistryPath);
             key.SetValue("RegexToParseEmailSubjects", RegexToParseEmailSubjects);
             key.SetValue("TfsConfigurationsCount", TfsConfigurations.Count);
             for (int idx =0; idx<TfsConfigurations.Count; idx++)
