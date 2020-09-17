@@ -27,6 +27,7 @@ namespace OutlookTfsConnector
                 Settings = new Settings();
                 Settings.Load();
             }
+            SavedOptions.LoadFromRegistry();
             //_enableFunction = true;
         }
 

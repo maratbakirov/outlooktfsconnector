@@ -49,6 +49,7 @@ namespace OutlookTfsConnector
             cbProject.DataSource = Globals.ThisAddIn.Settings.TfsConfigurations;
             cbProject.DisplayMember = "TfsProject";
 
+            this.LoadOptions();
 
 
             txtTitle.Text = _outlookCurrentMailItem.Subject;
@@ -97,12 +98,14 @@ namespace OutlookTfsConnector
 
         private void btnClose_Click(object sender, EventArgs e)
         {
+            this.SaveOptions();
             this.Close();
             this.Dispose();
         }
 
         private void btnSaveNClose_Click(object sender, EventArgs e)
         {
+            this.SaveOptions();
             this.Save();
             this.Close();
             this.Dispose();
@@ -418,6 +421,65 @@ namespace OutlookTfsConnector
                 }
                 CheckAndEnableControls();
             }
+        }
+
+
+        private void SaveOptions()
+        {
+            try
+            {
+                SavedOptions.settings["Project"] = cbProject.SelectedIndex.ToString();
+                SavedOptions.settings["WorkItemType"] = cbWorkItemType.Text;
+                SavedOptions.settings["Priority"] = cbPriority.Text;
+                SavedOptions.settings["Severity"] = cbSeverity.Text;
+                SavedOptions.SaveToRegistry();
+            }
+            catch (System.Exception ex)
+            {
+                //todo:logging
+            }
+        }
+
+        private void LoadOptions()
+        {
+            try
+            {
+                if (SavedOptions.settings.ContainsKey("Project"))
+                {
+                    var selectedIndex = -1;
+                    int.TryParse(SavedOptions.settings["Project"].ToString(), out selectedIndex);
+                    if (selectedIndex >= 0 && selectedIndex < cbProject.Items.Count)
+                    {
+                        cbProject.SelectedIndex = selectedIndex;
+                    }
+                }
+                if (SavedOptions.settings.ContainsKey("WorkItemType"))
+                {
+                    SetComboValue(cbWorkItemType, (string)SavedOptions.settings["WorkItemType"]);
+                }
+                if (SavedOptions.settings.ContainsKey("Priority"))
+                {
+                    SetComboValue(cbPriority, (string)SavedOptions.settings["Priority"]);
+                }
+                if (SavedOptions.settings.ContainsKey("Severity"))
+                {
+                    SetComboValue(cbSeverity, (string)SavedOptions.settings["Severity"]);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                //todo:logging
+            }
+
+        }
+
+        private void SetComboValue(ComboBox comboBox, string value)
+        {
+            if (!comboBox.Items.Contains(value))
+            {
+                comboBox.Items.Add(value);
+            }
+            comboBox.Text = value;
         }
 
         private static string GetTempFolder()

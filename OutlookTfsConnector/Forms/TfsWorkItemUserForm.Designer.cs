@@ -88,6 +88,7 @@
             "Task",
             "Bug",
             "Feature",
+            "User Story",
             "Issue"});
             this.cbWorkItemType.Location = new System.Drawing.Point(182, 26);
             this.cbWorkItemType.Margin = new System.Windows.Forms.Padding(4);

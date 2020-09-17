@@ -341,6 +341,7 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="Code\SavedOptions.cs" />
     <Compile Include="Code\SecurityExtensions.cs" />
     <Compile Include="Code\Settings.cs" />
     <Compile Include="Code\Utils.cs" />
