@@ -79,3 +79,17 @@ the product now remembers the last choices for project/item type
 you can now select the user story
 some work on the installer 
 
+# 0.0.3 
+added the image size display
+
+# 0.0.2
+added the update item functionality, added an ability to embed from , date etc into the text
+
+# 0.0.1
+basic release
+
+
+# thanks
+
+original version taken from and then was updated and improved
+http://amolpandey.com/2018/08/26/vsts-tfs-online-create-work-item-from-outlook-mail-integration-via-vsto/
