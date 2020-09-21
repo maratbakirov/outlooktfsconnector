@@ -17,5 +17,5 @@ some work on the installer
 # installation notes
 
 the installation only works "for current user". 
-i have not fond  the way to remove "for everyone" yet
+i have not found  the way to remove "for everyone" yet
 
