@@ -15,6 +15,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -50,7 +51,6 @@ namespace OutlookTfsConnector
             cbProject.DisplayMember = "TfsProject";
 
             this.LoadOptions();
-
 
             txtTitle.Text = _outlookCurrentMailItem.Subject;
 
@@ -93,6 +93,24 @@ namespace OutlookTfsConnector
                     false);
             }
 
+            // check if the subject can parse the regex
+            if (!string.IsNullOrEmpty(Globals.ThisAddIn.Settings.RegexToParseEmailSubjects))
+            {
+                Regex regex = new Regex(Globals.ThisAddIn.Settings.RegexToParseEmailSubjects);
+                var match = regex.Match(_outlookCurrentMailItem.Subject);
+                if (match.Success)
+                {
+                    var value = match.Value;
+                    Regex regex2 = new Regex("[\\d]+");
+                    var match2 = regex2.Match(value);
+                    if (match2.Success)
+                    {
+                        tabControl1.SelectedIndex = 1;
+                        txtExistingItemId.Text = match2.Value;
+                    }
+                }
+            }
+            FindWorkItem(txtExistingItemId.Text, out existingItem, out existingItemValidated);
         }
 
 
