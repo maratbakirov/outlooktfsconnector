@@ -1,4 +1,8 @@
 # version history 
+## 0.0.5
+added an option to process regexp and automatically swithch to the "update" tab.
+
+
 ## 0.0.4
 
 issues closed
