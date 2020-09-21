@@ -1,7 +1,74 @@
+# introduction
+
+This project is the tool, designed to simplify adding or updating the TFS items using the outlook emails as a source.
+it should work from any reasonably recent version of outlook (assuming 2013 and later) and TFS from 2017 or Azure Devops. 
+(The project uses personal access tokens that were introduced in the TFS 2017).
+
+
+# installation 
+
+## option one
+
+run the supplied OutlookTfsSetup.msi or setup.exe  if you dont have the msi infrastructure on your system.
+
+select "current user"
+the installation only works "for current user". 
+i have not found  the way to remove "for everyone" option yet
+
+restart outlook , the adding should be working.
+
+if you want to have the tfs adding available for other users of the computer, follow the procedure similar to the 
+option two below, the files should be in the folder C:\Program Files (x86)\Marat Bakirov\OutlookTfsConnector\
+
+## option two
+
+download the binaries.zip and unzip them 
+
+download the OutlookTfsConnectorRegistrationTool.exe and run it 
+
+press "register", it will open the file dialog, find the vsto file and select it 
+
+restart outlook.
+
+you might have this warning message
+
+![warning image](https://raw.githubusercontent.com/maratbakirov/outlooktfsconnector/master/images/publishing%20warning.png)
+
+it is normal you can just press install.
+
+
+# setting up
+
+you need to generate a personal access token from your tfs/azure devops the TFS.
+the expiry date could be anything you are comfortable with, the rights should be read/write work items
+
+open the link
+https://yourtfs.visualstudio.com/_usersSettings/tokens
+and create the token
+
+![create token](https://raw.githubusercontent.com/maratbakirov/outlooktfsconnector/master/images/createtoken.png)
+
+press the "settings" button on the main ribbon, enter the url for your project, the project name, your login and the token
+
+![warning image](https://raw.githubusercontent.com/maratbakirov/outlooktfsconnector/master/images/settings.png)
+press save and close.
+
+to operate press the "add email to tfs" button. 
+
+you have two options.
+
+on the "add" tab you need to enter the url of the parent item.
+the new item will be created as a child of the item you selected, the area and iteration would be copied from the parent. 
+
+other option is to update an existing item in this case the text would be added as a discussion comment. 
+
+you can also select which attachments you want to add and optionally add an attachment comment. 
+the first "virtual" attachment is the whole message saved as MSG file.
+
+
 # version history 
 ## 0.0.5
-added an option to process regexp and automatically swithch to the "update" tab.
-
+added an option to process regexp and automatically switch to the "update" tab.
 
 ## 0.0.4
 
@@ -11,11 +78,4 @@ item urls are now working and copied to clipboard
 the product now remembers the last choices for project/item type
 you can now select the user story
 some work on the installer 
-
-
-
-# installation notes
-
-the installation only works "for current user". 
-i have not found  the way to remove "for everyone" yet
 
