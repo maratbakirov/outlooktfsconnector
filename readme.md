@@ -22,7 +22,13 @@ option two below, the files should be in the folder C:\Program Files (x86)\Marat
 
 ## option two
 
-download the binaries.zip and unzip them 
+download the binaries.zip and unzip them into a folder "folder".
+
+it is recommended to open powershell and run this command:
+
+get-childitem "folder" | unblock-file
+
+(see https://winaero.com/blog/how-to-unblock-files-downloaded-from-internet-in-windows-10/ for more detailed explanation)
 
 download the OutlookTfsConnectorRegistrationTool.exe and run it 
 
