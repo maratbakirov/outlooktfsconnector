@@ -73,6 +73,10 @@ the first "virtual" attachment is the whole message saved as MSG file.
 
 
 # version history 
+## 0.0.6
+The small issue with attachements comment has been corrected.
+
+
 ## 0.0.5
 added an option to process regexp and automatically switch to the "update" tab.
 
