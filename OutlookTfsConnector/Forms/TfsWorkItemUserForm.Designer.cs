@@ -426,6 +426,7 @@
             // 
             // txtAttachementComment
             // 
+            this.txtAttachementComment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.txtAttachementComment.Location = new System.Drawing.Point(12, 669);
             this.txtAttachementComment.Name = "txtAttachementComment";
             this.txtAttachementComment.Size = new System.Drawing.Size(382, 22);
