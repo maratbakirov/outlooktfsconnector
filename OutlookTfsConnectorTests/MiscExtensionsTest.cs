@@ -5,22 +5,22 @@ using OutlookTfsConnector;
 namespace OutlookTfsConnectorTests
 {
     [TestClass]
-    public class StringExtensionsTest
+    public class MiscExtensionsTest
     {
         [TestMethod]
         public void TestMethod1()
         {
-            Assert.AreEqual("", "".GetFileName());
+            Assert.AreEqual("", "".GetSafeFileSystemName());
         }
         [TestMethod]
         public void TestMethod2()
         {
-            Assert.AreEqual("____", ">< \"".GetFileName());
+            Assert.AreEqual("____", ">< \"".GetSafeFileSystemName());
         }
         [TestMethod]
         public void TestMethod3()
         {
-            Assert.AreEqual("", ((string)null).GetFileName());
+            Assert.AreEqual("", ((string)null).GetSafeFileSystemName());
         }
     }
 }

@@ -87,10 +87,12 @@ namespace OutlookTfsConnector
             chkLstBoxAttachements.Items.Add("<MSG>, size:"+ _outlookCurrentMailItem.Size/1024+"K", true);
             for (int i = 1; i <= _outlookCurrentMailItem.Attachments.Count; i++)
             {
-                chkLstBoxAttachements.Items.Add(string.Format("{0}, size:{1}K",
-                    _outlookCurrentMailItem.Attachments[i].FileName,
+                chkLstBoxAttachements.Items.Add(
+                    string.Format("{0}, size:{1}K",
+                    _outlookCurrentMailItem.Attachments[i].GetFileName(),
                     _outlookCurrentMailItem.Attachments[i].Size/1024),
                     false);
+
             }
 
             // check if the subject can parse the regex
@@ -296,7 +298,7 @@ namespace OutlookTfsConnector
 
                 if (chkLstBoxAttachements.GetItemChecked(0))
                 {
-                    var subject = _outlookCurrentMailItem.Subject.GetFileName()
+                    var subject = _outlookCurrentMailItem.Subject.GetSafeFileSystemName()
                         + ".msg";
                     string allMessage = tempFolder + subject;
                     saveFilePaths.Add(allMessage);
@@ -311,8 +313,8 @@ namespace OutlookTfsConnector
                 {
                     if (chkLstBoxAttachements.GetItemChecked(i))
                     {
-                        var filename = _outlookCurrentMailItem.Attachments[i].FileName;
-                        filename = filename.GetFileName();
+                        var filename = _outlookCurrentMailItem.Attachments[i].GetFileName();
+                        filename = filename.GetSafeFileSystemName();
                         string fPath = tempFolder + filename;
                         saveFilePaths.Add(fPath);
                         _outlookCurrentMailItem.Attachments[i].SaveAsFile(fPath);
@@ -744,8 +746,8 @@ namespace OutlookTfsConnector
 
 
                 // attachments array in outlook is 1 based because of legacy and VB compatibility
-                var filename = _outlookCurrentMailItem.Attachments[i].FileName;
-                filename = filename.GetFileName();
+                var filename = _outlookCurrentMailItem.Attachments[i].GetFileName();
+                filename = filename.GetSafeFileSystemName();
                 var extension = Path.GetExtension(filename).ToLower();
                 if (!imageExtensions.Contains(extension))
                 {

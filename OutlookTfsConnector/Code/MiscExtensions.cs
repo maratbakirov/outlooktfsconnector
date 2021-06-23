@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace OutlookTfsConnector
 {
-    public static class StringExtensions
+    public static class MiscExtensions
     {
         static HashSet<char> invalidCharsSet = new HashSet<char>();
-        static StringExtensions(){
+        static MiscExtensions(){
             foreach (char c in System.IO.Path.GetInvalidFileNameChars())
             {
                 invalidCharsSet.Add(c);
@@ -45,7 +45,7 @@ namespace OutlookTfsConnector
         }
 
 
-        public static string GetFileName(this string source)
+        public static string GetSafeFileSystemName(this string source)
         {
             if (source == null)
             {
@@ -64,6 +64,27 @@ namespace OutlookTfsConnector
                 }
             }
             return result.ToString();
+        }
+        public static string GetFileName(this Microsoft.Office.Interop.Outlook.Attachment source)
+        {
+            var result  = "<hidden>" + source.Index;
+            try
+            {
+                result = source.FileName;
+            }
+            catch
+            {
+                try
+                {
+                    result = source.DisplayName;
+                }
+                catch
+                {
+                    //TODO: log exception
+                }
+            }
+
+            return result;
         }
     }
 }

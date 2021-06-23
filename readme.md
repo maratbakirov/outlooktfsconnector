@@ -83,6 +83,11 @@ the first "virtual" attachment is the whole message saved as MSG file.
 
 
 # version history 
+## 0.0.7
+issue #43  The small issue with attachements comment anchor.
+issue #44  fixing crashing on some attachements
+
+
 ## 0.0.6
 The small issue with attachements comment has been corrected.
 

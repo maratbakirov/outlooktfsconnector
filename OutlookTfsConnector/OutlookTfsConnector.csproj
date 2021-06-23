@@ -395,7 +395,7 @@
     <Compile Include="Forms\SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Code\StringExtensions.cs" />
+    <Compile Include="Code\MiscExtensions.cs" />
     <Compile Include="Forms\TfsWorkItemUserForm.cs">
       <SubType>Form</SubType>
     </Compile>
