@@ -4,8 +4,18 @@ This project is the tool, designed to simplify adding or updating the TFS items 
 it should work from any reasonably recent version of outlook (assuming 2013 and later) and TFS from 2017 or Azure Devops. 
 (The project uses personal access tokens that were introduced in the TFS 2017).
 
+# prerequisites
+## .NET Framework 4.7.2
+https://dotnet.microsoft.com/download/dotnet-framework/net472
+
+(i have not tested but i assume higher would do too)
+
+## VSTO Runtime 
+https://www.microsoft.com/en-us/download/details.aspx?id=56961
+
 
 # installation 
+
 
 ## option one
 
