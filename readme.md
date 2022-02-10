@@ -83,6 +83,10 @@ the first "virtual" attachment is the whole message saved as MSG file.
 
 
 # version history 
+## 0.0.8
+issue #46 fixed the logic of save and close button
+issue $45 updated binaries so it works with the latest tfs
+
 ## 0.0.7
 issue #43  The small issue with attachements comment anchor.
 issue #44  fixing crashing on some attachements
