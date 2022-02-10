@@ -126,12 +126,12 @@ namespace OutlookTfsConnector
         private void btnSaveNClose_Click(object sender, EventArgs e)
         {
             this.SaveOptions();
-            this.Save();
+            this.Save(skipSaveSuccessDialog:true);
             this.Close();
             this.Dispose();
         }
 
-        private void Save()
+        private void Save(bool skipSaveSuccessDialog = false)
         {
             var isNewMode = (tabControl1.SelectedTab == tabNewItem);
             var isUpdateMode = (tabControl1.SelectedTab == tabUpdateItem);
@@ -352,7 +352,7 @@ namespace OutlookTfsConnector
                                          }
                                      }
                                  }
-                             );;
+                             ); ;
                             uploadedAttachementUrl.Add(attachment.Url);
                         }
 
@@ -416,7 +416,10 @@ namespace OutlookTfsConnector
                         var url = GetUrlFromWorkItem(finalResult);
                         System.Windows.Forms.Clipboard.SetText(url, TextDataFormat.Text);
 
-                        MessageBox.Show("Item updated Successfully, with ID: " + finalResult.Id + "\r\n\r\n" + url, "Item Updated, URL copied to clipboard");
+                        if (!skipSaveSuccessDialog)
+                        {
+                            MessageBox.Show("Item updated Successfully, with ID: " + finalResult.Id + "\r\n\r\n" + url, "Item Updated, URL copied to clipboard");
+                        }
 
                     }
                 }
@@ -425,7 +428,10 @@ namespace OutlookTfsConnector
                     var url = GetUrlFromWorkItem(result);
                     System.Windows.Forms.Clipboard.SetText(url, TextDataFormat.Text);
 
-                    MessageBox.Show("Item Created Successfully, with ID: " + result.Id + "\r\n\r\n" + url, "Item Created, URL copied to clipboard");
+                    if (!skipSaveSuccessDialog)
+                    {
+                        MessageBox.Show("Item Created Successfully, with ID: " + result.Id + "\r\n\r\n" + url, "Item Created, URL copied to clipboard");
+                    }
                 }
             }
             catch (System.Exception ex)
