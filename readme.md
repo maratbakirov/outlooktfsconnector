@@ -84,6 +84,9 @@ the first "virtual" attachment is the whole message saved as MSG file.
 
 # version history 
 ## 0.0.8
+#49 issues connecting to the cloud devops from outlook
+
+## 0.0.8
 issue #46 fixed the logic of save and close button
 issue $45 updated binaries so it works with the latest tfs
 
