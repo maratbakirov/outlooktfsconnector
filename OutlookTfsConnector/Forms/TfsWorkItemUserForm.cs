@@ -401,7 +401,8 @@ namespace OutlookTfsConnector
                         var url = GetUrlFromWorkItem(finalResult);
                         System.Windows.Forms.Clipboard.SetText(url, TextDataFormat.Text);
 
-                        MessageBox.Show("Item Created Successfully, with ID: " + finalResult.Id + "\r\n\r\n" + url, "Item Created With Attachment, URL copied to clipboard");
+                        LogSuccess(string.Format("Item Created With Attachment, URL copied to clipboard ID: " + finalResult.Id + "\r\n\r\n" + url));
+
                     }
                     else if (isUpdateMode)
                     {
@@ -421,7 +422,7 @@ namespace OutlookTfsConnector
 
                         if (!skipSaveSuccessDialog)
                         {
-                            MessageBox.Show("Item updated Successfully, with ID: " + finalResult.Id + "\r\n\r\n" + url, "Item Updated, URL copied to clipboard");
+                            LogSuccess("Item updated Successfully, url copied to clipboard, ID: " + finalResult.Id + "\r\n\r\n" + url);
                         }
 
                     }
@@ -433,13 +434,13 @@ namespace OutlookTfsConnector
 
                     if (!skipSaveSuccessDialog)
                     {
-                        MessageBox.Show("Item Created Successfully, with ID: " + result.Id + "\r\n\r\n" + url, "Item Created, URL copied to clipboard");
+                        LogSuccess("Item Created Successfully, URl copied to clipboard, ID: " + result.Id + "\r\n\r\n" + url);
                     }
                 }
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                LogError(ex.Message);
             }
             finally
             {
@@ -453,10 +454,31 @@ namespace OutlookTfsConnector
                 }
                 catch (System.Exception ex)
                 {
-                    //TODO: silently log?
+                    LogError(ex.Message, true);
                 }
                 CheckAndEnableControls();
             }
+        }
+
+        private void LogSuccess(string message)
+        {
+            txtLogMessage.Text = message;
+            txtLogMessage.ForeColor = SystemColors.WindowText;
+            txtLogMessage.BackColor = SystemColors.Control;
+        }
+        private void LogError(string message, bool append  = false)
+        {
+            if (append)
+            {
+                txtLogMessage.Text += message;
+            }
+            else
+            {
+                txtLogMessage.Text = message;
+            }
+            txtLogMessage.ForeColor = Color.FromKnownColor(KnownColor.Red);
+            // this is to fix bug with rendering read only controls
+            txtLogMessage.BackColor = SystemColors.Control;
         }
 
         private string GetUrlFromWorkItem(WorkItem item)
@@ -577,7 +599,7 @@ namespace OutlookTfsConnector
             }
             catch(System.Exception ex)
             {
-                MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                LogError(ex.Message);
             }
             return SenderEmailAddress;
         }
@@ -691,13 +713,13 @@ namespace OutlookTfsConnector
                         txtLogMessage.Text = "Error = cannot use the removed item " + Environment.NewLine + WorkItemToString(item);
                         item = null;
                         itemValidated = false;
+                        LogError("Error = cannot use the removed item " + Environment.NewLine + WorkItemToString(item));
                     }
                     else
                     {
                         itemValidated = true;
                         CheckAndEnableControls();
-                        txtLogMessage.Text = WorkItemToString(item);
-                        txtLogMessage.ForeColor = SystemColors.WindowText;
+                        LogSuccess(WorkItemToString(item));
                     }
                 }
             }
@@ -706,12 +728,12 @@ namespace OutlookTfsConnector
                 item = null;
                 itemValidated = false;
                 CheckAndEnableControls();
-                txtLogMessage.Text = ex.Message ?? "";
+                var message =  ex.Message ?? "";
                 if (ex.InnerException != null)
                 {
-                    txtLogMessage.Text += " " + ex.InnerException.Message ?? "";
+                    message += " " + ex.InnerException.Message ?? "";
                 }
-                txtLogMessage.ForeColor = Color.FromKnownColor(KnownColor.Red);
+                LogError(message);
             }
             finally
             {

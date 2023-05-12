@@ -83,7 +83,11 @@ the first "virtual" attachment is the whole message saved as MSG file.
 
 
 # version history 
-## 0.0.8
+## 0.0.10
+#48 add the adding to the "do not disable" list 
+
+
+## 0.0.9
 #49 issues connecting to the cloud devops from outlook
 
 ## 0.0.8
