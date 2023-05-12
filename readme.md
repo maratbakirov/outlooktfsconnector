@@ -83,6 +83,10 @@ the first "virtual" attachment is the whole message saved as MSG file.
 
 
 # version history 
+
+## 0.0.11
+#39 improve the outlook startup speed
+
 ## 0.0.10
 #41 the button does not show up in ribbon in the meeting responses
 #42 color coding if the item is not found

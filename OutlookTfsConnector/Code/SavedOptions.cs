@@ -29,25 +29,29 @@ namespace OutlookTfsConnector
             }
 
         }
-        public static void LoadFromRegistry()
+        public static  Task LoadFromRegistry()
         {
-            try
+            return Task.Run(() =>
             {
-                RegistryKey registryKey = Registry.CurrentUser.OpenSubKey(RegistryPath);
-                if (registryKey != null)
+                try
                 {
-                    foreach (var key in registryKey.GetValueNames())
+                    RegistryKey registryKey = Registry.CurrentUser.OpenSubKey(RegistryPath);
+                    if (registryKey != null)
                     {
-                        settings[key] = registryKey.GetValue(key).ToString();
+                        foreach (var key in registryKey.GetValueNames())
+                        {
+                            settings[key] = registryKey.GetValue(key).ToString();
+                        }
                     }
                 }
-            }
-            catch(Exception ex)
-            { 
-                //todo:logging
-            }
-            
+                catch (Exception ex)
+                {
+                    //return Task.FromException<string>(ex);
+                    //todo:logging
+                }
 
+                //return Task.CompletedTask;
+            });
 
         }
     }

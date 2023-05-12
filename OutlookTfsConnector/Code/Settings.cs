@@ -46,49 +46,53 @@ namespace OutlookTfsConnector
         public string RegexToParseEmailSubjects = "";
         public List<TfsConfigurationItem> TfsConfigurations = new List<TfsConfigurationItem>();
 
-        public void Load()
+        public  Task  Load()
         {
-            try
+            return Task.Run(() =>
             {
+                try
+                {
 
-                RegistryKey key = Registry.CurrentUser.OpenSubKey(RegistryPath);
-                if (key != null)
-                {
-                    RegexToParseEmailSubjects = (string)key.GetValue("RegexToParseEmailSubjects", "");
-                }
-                if (string.IsNullOrWhiteSpace(RegexToParseEmailSubjects))
-                {
-                    RegexToParseEmailSubjects = @"#[\d]+";
-                }
-                var TfsConfigurationsCount = (int)key.GetValue("TfsConfigurationsCount");
-                for (int idx = 0; idx < TfsConfigurationsCount; idx++)
-                {
-                    var tfsUserToken = "";
-                    try
+                    RegistryKey key = Registry.CurrentUser.OpenSubKey(RegistryPath);
+                    if (key != null)
                     {
-                        tfsUserToken = ((string)key.GetValue("TfsConfiguration" + idx + ".TfsUserToken")).Decrypt();
+                        RegexToParseEmailSubjects = (string)key.GetValue("RegexToParseEmailSubjects", "");
                     }
-                    catch(Exception ex)
+                    if (string.IsNullOrWhiteSpace(RegexToParseEmailSubjects))
                     {
-                        //TODO: log exception
+                        RegexToParseEmailSubjects = @"#[\d]+";
                     }
-                    TfsConfigurations.Add(new TfsConfigurationItem(
-                            (string)key.GetValue("TfsConfiguration" + idx + ".TfsUrl"),
-                            (string)key.GetValue("TfsConfiguration" + idx + ".TfsProject"),
-                            (string)key.GetValue("TfsConfiguration" + idx + ".TfsUserName"),
-                            tfsUserToken
-                        )); ;
+                    var TfsConfigurationsCount = (int)key.GetValue("TfsConfigurationsCount");
+                    for (int idx = 0; idx < TfsConfigurationsCount; idx++)
+                    {
+                        var tfsUserToken = "";
+                        try
+                        {
+                            tfsUserToken = ((string)key.GetValue("TfsConfiguration" + idx + ".TfsUserToken")).Decrypt();
+                        }
+                        catch (Exception ex)
+                        {
+                            //TODO: log exception
+                        }
+                        TfsConfigurations.Add(new TfsConfigurationItem(
+                                (string)key.GetValue("TfsConfiguration" + idx + ".TfsUrl"),
+                                (string)key.GetValue("TfsConfiguration" + idx + ".TfsProject"),
+                                (string)key.GetValue("TfsConfiguration" + idx + ".TfsUserName"),
+                                tfsUserToken
+                            )); ;
+                    }
+                    if (!FixAllUrls())
+                    {
+                        Save();
+                    }
                 }
-                if (!FixAllUrls())
+                catch (Exception ex)
                 {
-                    Save();
+                    //return Task.FromException<string>(ex);
+                    // todo: log cannot read data from registry
                 }
-            }
-            catch (Exception ex)
-            {
-                // todo: log cannot read data from registry
-            }
-
+                //return Task.CompletedTask;
+            });
         }
 
         public void Save()
