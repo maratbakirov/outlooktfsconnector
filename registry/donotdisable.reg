@@ -1,0 +1,5 @@
+REGEDIT4
+
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Office\16.0\Outlook\Resiliency\DoNotDisableAddinList]
+"OutlookTfsConnector"=dword:00000001
+

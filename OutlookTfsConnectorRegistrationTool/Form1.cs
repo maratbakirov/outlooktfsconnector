@@ -15,6 +15,7 @@ namespace OutlookTfsConnectorRegistrationTool
     public partial class Form1 : Form
     {
         private const string RegistryAddinPath = @"Software\Microsoft\Office\Outlook\Addins\OutlookTfsConnector";
+        private const string RegistryDoNotDisableAddinPath = @"SOFTWARE\Microsoft\Office\16.0\Outlook\Resiliency\DoNotDisableAddinList";
         //private const string RegistryDataPath = @"Software\Microsoft\Office\Outlook\AddinsData\OutlookTfsConnector";
 
         public Form1()
@@ -52,6 +53,10 @@ namespace OutlookTfsConnectorRegistrationTool
             key.SetValue("Description", "OutlookTfsConnector");
             key.SetValue("FriendlyName", "OutlookTfsConnector");
             key.SetValue("Manifest", path);
+
+            var key2 = Registry.CurrentUser.CreateSubKey(RegistryDoNotDisableAddinPath);
+            key2.SetValue("OutlookTfsConnector", 1);
+
             MessageBox.Show("Successfully registered the connector");
         }
 
