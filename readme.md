@@ -84,6 +84,8 @@ the first "virtual" attachment is the whole message saved as MSG file.
 
 # version history 
 ## 0.0.10
+#41 the button does not show up in ribbon in the meeting responses
+#42 color coding if the item is not found
 #48 add the adding to the "do not disable" list 
 #46 remove the dialog on operation completion..
 
