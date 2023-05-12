@@ -85,6 +85,7 @@ the first "virtual" attachment is the whole message saved as MSG file.
 # version history 
 ## 0.0.10
 #48 add the adding to the "do not disable" list 
+#46 remove the dialog on operation completion..
 
 
 ## 0.0.9
