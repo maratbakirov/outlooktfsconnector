@@ -96,7 +96,6 @@ namespace OutlookTfsConnector
         {
             SettingsForm userForm = new SettingsForm();
             userForm.ShowDialog();
-
         }
     }
 }
