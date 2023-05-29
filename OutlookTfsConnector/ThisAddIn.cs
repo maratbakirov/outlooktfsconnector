@@ -20,6 +20,13 @@ namespace OutlookTfsConnector
 
         //private const string configFilePath = @"C:\Temp\OutlookTfsConfig\OutlookTfsAddinConfig.txt";
 
+
+        //this enables new xml style ribbon
+        protected override Microsoft.Office.Core.IRibbonExtensibility CreateRibbonExtensibilityObject()
+        {
+            return new Ribbon();
+        }
+
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
             if (Settings == null)

@@ -24,6 +24,8 @@ namespace OutlookTfsConnector
             outlookApp = Globals.ThisAddIn.Application as Microsoft.Office.Interop.Outlook.Application;
             outlookAddin = Globals.ThisAddIn;
 
+            var ribboms = Globals.Ribbons;
+
             //btnAddEmailToTfs.Enabled = outlookAddin.EnableAddinFunctions;
             //tabNewMailMessage.Ribbon = 
 

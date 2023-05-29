@@ -36,20 +36,21 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OutlookTfsConnectorRibbon));
             this.tabCustomHome = this.Factory.CreateRibbonTab();
-            this.group1 = this.Factory.CreateRibbonGroup();
+            this.groupTabMailExplorer = this.Factory.CreateRibbonGroup();
             this.tabReadMessage = this.Factory.CreateRibbonTab();
             this.group2 = this.Factory.CreateRibbonGroup();
             this.tabNewMailMessage = this.Factory.CreateRibbonTab();
             this.group3 = this.Factory.CreateRibbonGroup();
             this.tab1 = this.Factory.CreateRibbonTab();
             this.group4 = this.Factory.CreateRibbonGroup();
+            this.button3 = this.Factory.CreateRibbonButton();
             this.btnAddEmailToTfs = this.Factory.CreateRibbonButton();
             this.btnSettings = this.Factory.CreateRibbonButton();
             this.btnAddEmailToTfs2 = this.Factory.CreateRibbonButton();
             this.button1 = this.Factory.CreateRibbonButton();
             this.button2 = this.Factory.CreateRibbonButton();
             this.tabCustomHome.SuspendLayout();
-            this.group1.SuspendLayout();
+            this.groupTabMailExplorer.SuspendLayout();
             this.tabReadMessage.SuspendLayout();
             this.group2.SuspendLayout();
             this.tabNewMailMessage.SuspendLayout();
@@ -62,16 +63,17 @@
             // 
             this.tabCustomHome.ControlId.ControlIdType = Microsoft.Office.Tools.Ribbon.RibbonControlIdType.Office;
             this.tabCustomHome.ControlId.OfficeId = "TabMail";
-            this.tabCustomHome.Groups.Add(this.group1);
+            this.tabCustomHome.Groups.Add(this.groupTabMailExplorer);
             this.tabCustomHome.Label = "TabMail";
             this.tabCustomHome.Name = "tabCustomHome";
             // 
-            // group1
+            // groupTabMailExplorer
             // 
-            this.group1.Items.Add(this.btnAddEmailToTfs);
-            this.group1.Items.Add(this.btnSettings);
-            this.group1.Label = "TFS";
-            this.group1.Name = "group1";
+            this.groupTabMailExplorer.Items.Add(this.btnAddEmailToTfs);
+            this.groupTabMailExplorer.Items.Add(this.btnSettings);
+            this.groupTabMailExplorer.Label = "TFS";
+            this.groupTabMailExplorer.Name = "groupTabMailExplorer";
+            this.groupTabMailExplorer.Position = this.Factory.RibbonPosition.BeforeOfficeId("GroupContactFind");
             // 
             // tabReadMessage
             // 
@@ -114,6 +116,16 @@
             this.group4.Items.Add(this.button2);
             this.group4.Label = "TFS";
             this.group4.Name = "group4";
+            // 
+            // button3
+            // 
+            this.button3.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.button3.Label = "TFS Addin Settings";
+            this.button3.Name = "button3";
+            this.button3.OfficeImageId = "SetAsDefault";
+            this.button3.ScreenTip = "Settings";
+            this.button3.ShowImage = true;
+            this.button3.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnSettings_Click);
             // 
             // btnAddEmailToTfs
             // 
@@ -164,6 +176,10 @@
             // OutlookTfsConnectorRibbon
             // 
             this.Name = "OutlookTfsConnectorRibbon";
+            // 
+            // OutlookTfsConnectorRibbon.OfficeMenu
+            // 
+            this.OfficeMenu.Items.Add(this.button3);
             this.RibbonType = "Microsoft.Outlook.Explorer, Microsoft.Outlook.Mail.Compose, Microsoft.Outlook.Mai" +
     "l.Read, Microsoft.Outlook.Response.Read";
             this.Tabs.Add(this.tabCustomHome);
@@ -173,8 +189,8 @@
             this.Load += new Microsoft.Office.Tools.Ribbon.RibbonUIEventHandler(this.OutlookTfsConnectorRibbon_Load);
             this.tabCustomHome.ResumeLayout(false);
             this.tabCustomHome.PerformLayout();
-            this.group1.ResumeLayout(false);
-            this.group1.PerformLayout();
+            this.groupTabMailExplorer.ResumeLayout(false);
+            this.groupTabMailExplorer.PerformLayout();
             this.tabReadMessage.ResumeLayout(false);
             this.tabReadMessage.PerformLayout();
             this.group2.ResumeLayout(false);
@@ -194,7 +210,7 @@
         #endregion
 
         internal Microsoft.Office.Tools.Ribbon.RibbonTab tabCustomHome;
-        internal Microsoft.Office.Tools.Ribbon.RibbonGroup group1;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup groupTabMailExplorer;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnAddEmailToTfs;
         private Microsoft.Office.Tools.Ribbon.RibbonTab tabReadMessage;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup group2;
@@ -206,6 +222,7 @@
         private Microsoft.Office.Tools.Ribbon.RibbonTab tab1;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup group4;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button2;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button3;
     }
 
     partial class ThisRibbonCollection
