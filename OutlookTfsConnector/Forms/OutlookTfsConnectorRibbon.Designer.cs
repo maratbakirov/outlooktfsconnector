@@ -131,7 +131,7 @@
             // 
             this.btnAddEmailToTfs.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.btnAddEmailToTfs.Image = ((System.Drawing.Image)(resources.GetObject("btnAddEmailToTfs.Image")));
-            this.btnAddEmailToTfs.Label = "Add Email To TFS";
+            this.btnAddEmailToTfs.Label = "Add To TFS";
             this.btnAddEmailToTfs.Name = "btnAddEmailToTfs";
             this.btnAddEmailToTfs.ShowImage = true;
             this.btnAddEmailToTfs.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnAddEmailToTfs_Click);
@@ -150,7 +150,7 @@
             // 
             this.btnAddEmailToTfs2.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.btnAddEmailToTfs2.Image = ((System.Drawing.Image)(resources.GetObject("btnAddEmailToTfs2.Image")));
-            this.btnAddEmailToTfs2.Label = "Add Email To TFS";
+            this.btnAddEmailToTfs2.Label = "Add To TFS";
             this.btnAddEmailToTfs2.Name = "btnAddEmailToTfs2";
             this.btnAddEmailToTfs2.ShowImage = true;
             this.btnAddEmailToTfs2.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnAddEmailToTfs_Click);
@@ -159,7 +159,7 @@
             // 
             this.button1.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.Label = "Add Email To TFS";
+            this.button1.Label = "Add To TFS";
             this.button1.Name = "button1";
             this.button1.ShowImage = true;
             this.button1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnAddEmailToTfsNewEmail_Click);
@@ -168,7 +168,7 @@
             // 
             this.button2.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
             this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
-            this.button2.Label = "Add Email To TFS";
+            this.button2.Label = "Add To TFS";
             this.button2.Name = "button2";
             this.button2.ShowImage = true;
             this.button2.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnAddEmailToTfs_Click);

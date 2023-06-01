@@ -496,9 +496,6 @@
     <Compile Include="Forms\TfsWorkItemUserForm.Designer.cs">
       <DependentUpon>TfsWorkItemUserForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ribbon.cs">
-      <XmlRibbon>true</XmlRibbon>
-    </Compile>
     <Compile Include="ThisAddIn.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -513,9 +510,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\btn_donateCC_LG[1].gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Ribbon.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\TfsImage.png" />
