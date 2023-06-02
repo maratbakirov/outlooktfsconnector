@@ -1,4 +1,4 @@
-﻿using Microsoft.TeamFoundation.VersionControl.Common.Internal;
+﻿//using Microsoft.TeamFoundation.VersionControl.Common.Internal;
 using OutlookTfsConnector;
 using OutlookTfsConnector.Code;
 using System;
